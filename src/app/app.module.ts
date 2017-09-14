@@ -10,6 +10,10 @@ import { OneblokPage } from '../pages/oneblok/oneblok';
 import { OneinfoPage } from '../pages/oneinfo/oneinfo';
 import { OnetindakanPage } from '../pages/onetindakan/onetindakan';
 import { OnekomentarPage } from '../pages/onekomentar/onekomentar';
+import { RinfoPage } from '../pages/rinfo/rinfo';
+import { RtindakanPage } from '../pages/rtindakan/rtindakan';
+import { RkomentarPage } from '../pages/rkomentar/rkomentar';
+
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
@@ -23,7 +27,10 @@ import { Camera } from '@ionic-native/camera';
     OneblokPage,
     OneinfoPage,
     OnetindakanPage,
-    OnekomentarPage
+    OnekomentarPage,
+    RinfoPage,
+    RtindakanPage,
+    RkomentarPage
   ],
   imports: [
     BrowserModule,
@@ -38,7 +45,10 @@ import { Camera } from '@ionic-native/camera';
     OneblokPage,
     OneinfoPage,
     OnetindakanPage,
-    OnekomentarPage
+    OnekomentarPage,
+    RinfoPage,
+    RtindakanPage,
+    RkomentarPage
   ],
   providers: [
     Camera,
