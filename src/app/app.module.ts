@@ -13,10 +13,13 @@ import { OnekomentarPage } from '../pages/onekomentar/onekomentar';
 import { RinfoPage } from '../pages/rinfo/rinfo';
 import { RtindakanPage } from '../pages/rtindakan/rtindakan';
 import { RkomentarPage } from '../pages/rkomentar/rkomentar';
+import { LoginPage } from '../pages/login/login'
 
+import { HttpModule } from "@angular/http";
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Camera } from '@ionic-native/camera';
+import { RestProvider } from '../providers/rest/rest';
 
 @NgModule({
   declarations: [
@@ -30,10 +33,11 @@ import { Camera } from '@ionic-native/camera';
     OnekomentarPage,
     RinfoPage,
     RtindakanPage,
-    RkomentarPage
+    RkomentarPage,
+    LoginPage
   ],
   imports: [
-    BrowserModule,
+    BrowserModule, HttpModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -48,13 +52,15 @@ import { Camera } from '@ionic-native/camera';
     OnekomentarPage,
     RinfoPage,
     RtindakanPage,
-    RkomentarPage
+    RkomentarPage,
+    LoginPage
   ],
   providers: [
     Camera,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    RestProvider
   ]
 })
 export class AppModule {}

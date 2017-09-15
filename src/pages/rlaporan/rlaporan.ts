@@ -11,7 +11,7 @@ import { RkomentarPage } from '../rkomentar/rkomentar';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-rlaporan',
   templateUrl: 'rlaporan.html',
