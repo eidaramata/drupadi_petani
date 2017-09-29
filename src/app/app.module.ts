@@ -14,6 +14,8 @@ import { RinfoPage } from '../pages/rinfo/rinfo';
 import { RtindakanPage } from '../pages/rtindakan/rtindakan';
 import { RkomentarPage } from '../pages/rkomentar/rkomentar';
 import { LoginPage } from '../pages/login/login'
+import { PenggunaPage } from '../pages/pengguna/pengguna'
+
 
 import { HttpModule } from "@angular/http";
 import { StatusBar } from '@ionic-native/status-bar';
@@ -34,7 +36,8 @@ import { RestProvider } from '../providers/rest/rest';
     RinfoPage,
     RtindakanPage,
     RkomentarPage,
-    LoginPage
+    LoginPage,
+    PenggunaPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -53,7 +56,8 @@ import { RestProvider } from '../providers/rest/rest';
     RinfoPage,
     RtindakanPage,
     RkomentarPage,
-    LoginPage
+    LoginPage,
+    PenggunaPage
   ],
   providers: [
     Camera,
