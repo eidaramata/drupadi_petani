@@ -1,6 +1,8 @@
 import { Component, ViewChild, ElementRef,NgZone } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { OneblokPage } from '../oneblok/oneblok';
+import { RestProvider } from '../../providers/rest/rest'
+
 
 declare var google;
 
@@ -11,9 +13,15 @@ declare var google;
 export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map:any;
+  userDetails:any
+  responseData : any
+  mapData = {"user_id": "" }
 
-  constructor(public navCtrl: NavController, public ngZone:NgZone) {
-
+  constructor(public navCtrl: NavController, public ngZone:NgZone, public rest:RestProvider) {
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.userData;
+    this.mapData.user_id = this.userDetails.user_id
+    console.log(this.mapData)
   }
   ionViewDidLoad(){
     this.loadMap();
@@ -22,6 +30,10 @@ blok(){
   this.navCtrl.push(OneblokPage);
 }
 loadMap(){
+  this.rest.PolygonPost(this.mapData, "welcome").then((result) => {
+  this.responseData = result;
+  console.log(this.responseData)
+
 
   var centermap =  [-6.893473,107.545005] // seolah2 data sudah dapat dari server
   let LatLng = new google.maps.LatLng(centermap[0], centermap[1]);
@@ -78,5 +90,6 @@ var triangleCoords2 = [
            this.blok()
          });
         });
+  });
   }
 }
