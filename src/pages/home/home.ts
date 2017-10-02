@@ -22,7 +22,9 @@ blok(){
   this.navCtrl.push(OneblokPage);
 }
 loadMap(){
-  let LatLng = new google.maps.LatLng(-6.893473,107.545005);
+
+  var centermap =  [-6.893473,107.545005] // seolah2 data sudah dapat dari server
+  let LatLng = new google.maps.LatLng(centermap[0], centermap[1]);
 
   let mapOptions = {
     center:LatLng,
@@ -31,27 +33,19 @@ loadMap(){
     mapTypeId: google.maps.MapTypeId.SATELLITE
   };
   this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
+  var imgl = [-6.894224,107.544383, -6.892461, 107.545649] //seolah2 data sudah dapat dari server
   var bounds = new google.maps.LatLngBounds(
-          new google.maps.LatLng(-6.894224, 107.544383 ), // lat bawah long atas X
-          new google.maps.LatLng( -6.892461, 107.545649 ), //lat atas long bawah X
-        );
+    new google.maps.LatLng( imgl[0], imgl[1] ), // lat bawah long atas X
+    new google.maps.LatLng( imgl[2], imgl[3] ), //lat atas long bawah X
+    );
 
     var  historicalOverlay = new google.maps.GroundOverlay(
                 'https://developers.google.com/maps/documentation/' +
             'javascript/examples/full/images/talkeetna.png',
                 bounds);
       historicalOverlay.setMap(this.map);
-/*
-  var triangleCoords = [
 
-        {lat: -6.895268, lng: 107.54427},
-        {lat: -6.89302, lng: 107.544646},
-        {lat: -6.89399, lng: 107.547612},
-        {lat: -6.8958, lng: 107.545574},
-
-      ];*/
-      var triangleCoords = [
+var triangleCoords = [
 
   { lat: -6.892528, lng: 107.544442 },
   { lat: -6.893012, lng: 107.544445 },
@@ -61,12 +55,12 @@ loadMap(){
 ];
 
 
-    var triangleCoords2 = [
+var triangleCoords2 = [
 
-  { lat: -6.893627,  lng: 107.54493  },
-  { lat: -6.893622,  lng: 107.545643   },
-  { lat: -6.894219,  lng: 107.545649  },
-  { lat: -6.894208,  lng: 107.544935 },
+  { lat: -6.893627, lng: 107.54493 },
+  { lat: -6.893622, lng: 107.545643 },
+  { lat: -6.894219, lng: 107.545649 },
+  { lat: -6.894208, lng: 107.544935 },
 
 ];
 
