@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 //let apiUrl = "http://dev.eidaramata.com/auth/login/";
 //let apiUrl = "http://webtoor.000webhostapp.com/api/";
 let apiUrl 	  = "http://map.eidaramata.com/auth/";
-let apiUrl2   = "http://map.eidaramata.com/maps/"
+let apiUrl2   = "http://map.eidaramata.com/"
 
 /*
   Generated class for the RestProvider provider.

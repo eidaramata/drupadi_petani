@@ -21,7 +21,6 @@ export class HomePage {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.mapData.user_id = this.userDetails.user_id
-    console.log(this.mapData)
   }
   ionViewDidLoad() {
     this.loadMap();
@@ -30,84 +29,60 @@ export class HomePage {
     this.navCtrl.push(OneblokPage);
   }
   loadMap() {
-    /*this.rest.PolygonPost(this.mapData, "welcome").then((result) => {
+    this.rest.PolygonPost({ "action": "mapionic"},"maps/welcome/ionic_maps").then((result) => {
     this.responseData = result;
-    console.log(this.responseData) });*/
+    console.log(this.responseData)
 
 
-    var centermap = [-6.893473, 107.545005] // seolah2 data sudah dapat dari server
+    var centermap = [this.responseData.dtmaps["lat"],this.responseData.dtmaps["long"]] // seolah2 data sudah dapat dari server
     let LatLng = new google.maps.LatLng(centermap[0], centermap[1]);
 
     let mapOptions = {
       center: LatLng,
-      zoom: 18,
+      zoom: 15,
       disableDefaultUI: true,
       mapTypeId: google.maps.MapTypeId.SATELLITE
     };
-    var bounds = new google.maps.LatLngBounds();
-    var polygons = [];
-    var arr = new Array();
+
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-    var imgl = [-6.894224, 107.544383, -6.892461, 107.545649] //seolah2 data sudah dapat dari server
-    var boundsImg = new google.maps.LatLngBounds(
-      new google.maps.LatLng(imgl[0], imgl[1]), // lat bawah long atas X
-      new google.maps.LatLng(imgl[2], imgl[3]), //lat atas long bawah X
-    );
-
+    var imgl = [this.responseData.dtmaps["imglnorth"],this.responseData.dtmaps["imglsouth"], this.responseData.dtmaps["imgleast"], this.responseData.dtmaps["imglwest"]] //seolah2 data sudah dapat dari server
+	  var boundsImg = new google.maps.LatLngBounds(
+		new google.maps.LatLng( imgl[0], imgl[1] ), // lat bawah long atas X
+		new google.maps.LatLng( imgl[2], imgl[3] ), //lat atas long bawah X
+		);
     var historicalOverlay = new google.maps.GroundOverlay(
-      'https://developers.google.com/maps/documentation/' +
-      'javascript/examples/full/images/talkeetna.png',
-      boundsImg);
-    historicalOverlay.setMap(this.map);
+					'http://map.eidaramata.com/assets/attach/'+this.responseData.dtmaps["org_id"]+'/'+this.responseData.dtmaps["imgpath"],
+					boundsImg);
+		  historicalOverlay.setMap(this.map);
+      var polygon	= this.responseData.poly;
+      var cords = []
+      for(var i=0; i < polygon.length;i++){
+      var dem = polygon[i].split(" ");
 
+        for (var j=0; j < dem.length; j++) {
+          var point = dem[j].split(",");
+          console.log(point)
+          cords.push(new google.maps.LatLng(parseFloat(point[0]), parseFloat(point[1])));
+        }
+        //console.log(cords)
 
-    var coordinatess = {
-      "blok1": [
-        [-6.892528, 107.544442],
-        [-6.893012, 107.544445],
-        [-6.893004, 107.545276],
-        [-6.892533, 107.545276]
-      ],
-      "blok2": [
-        [-6.893627, 107.54493],
-        [-6.893622, 107.545643],
-        [-6.894219, 107.545649],
-        [-6.894208, 107.544935]
-      ],
-    };
-    for (var z in coordinatess) {
-      console.log(z)
-
-    }
-    for (var i in coordinatess) {
-      arr = [];
-      for (var j = 0; j < coordinatess[i].length; j++) {
-        arr.push(new google.maps.LatLng(
-          parseFloat(coordinatess[i][j][0]),
-          parseFloat(coordinatess[i][j][1])
-        ));
-
-        bounds.extend(arr[arr.length - 1])
-      }
-      console.log(arr)
-
-
-      polygons.push(new google.maps.Polygon({
-        path: arr,
+     var polygons = (new google.maps.Polygon({
+        path: cords,
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillColor: '#FF0000',
         fillOpacity: 0.35
       }));
-      polygons[polygons.length - 1].setMap(this.map);
 
-      google.maps.event.addListener(polygons[polygons.length - 1], 'click', () => {
-        this.ngZone.run(() => {
-          this.blok()
+       cords = []
+      polygons.setMap(this.map);
+         google.maps.event.addListener(polygons,'click', () => {
+         this.ngZone.run(()=>{
+           this.blok()
+         });
         });
-      });
-      this.map.fitBounds(bounds);
+      }
+    });
     }
-  }
-}
+    }
