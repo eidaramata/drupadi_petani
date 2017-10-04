@@ -9,7 +9,7 @@ import { Camera } from '@ionic-native/camera';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+//@IonicPage()
 @Component({
   selector: 'page-onekomentar',
   templateUrl: 'onekomentar.html',
