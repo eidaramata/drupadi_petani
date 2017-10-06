@@ -13,14 +13,19 @@ declare var google;
 export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
-  userDetails: any
-  responseData: any
-  mapData = { "user_id": "" }
+  userDetails: any;
+  responseData: any;
+
+  mapData = { "user_id": "", "action": "", "token" : ""}
 
   constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
-    this.mapData.user_id = this.userDetails.user_id
+    this.mapData.user_id = this.userDetails.user_id;
+    this.mapData.token = this.userDetails.token;
+
+    this.mapData.action = "ionic_maps";
+    console.log(this.mapData)
   }
   ionViewDidLoad() {
     this.loadMap();
@@ -43,9 +48,9 @@ export class HomePage {
     this.navCtrl.push(OneblokPage);
   }
   loadMap() {
-    this.rest.PolygonPost({ "action": "mapionic"},"maps/welcome/ionic_maps").then((result) => {
+    this.rest.PolygonPost(this.mapData,"maps/welcome/ionic_maps").then((result) => {
     this.responseData = result;
-    console.log(this.responseData)
+    //console.log(this.responseData)
 
 
     var centermap = [this.responseData.dtmaps["lat"],this.responseData.dtmaps["long"]] // data server
@@ -65,7 +70,7 @@ export class HomePage {
 		new google.maps.LatLng( imgl[2], imgl[3] ), //lat atas long bawah X
 		);
     var historicalOverlay = new google.maps.GroundOverlay(
-					'http://map.eidaramata.com/assets/attach/'+this.responseData.dtmaps["org_id"]+'/'+this.responseData.dtmaps["imgpath"],
+					this.rest.base_url + 'assets/attach/'+this.responseData.dtmaps["org_id"]+'/'+this.responseData.dtmaps["imgpath"],
 					boundsImg);
 		  historicalOverlay.setMap(this.map);
       var polygon	= this.responseData.poly;
@@ -75,7 +80,7 @@ export class HomePage {
 
         for (var j=0; j < arr.length; j++) {
           var point = arr[j].split(",");
-          console.log(point)
+          //console.log(point)
           cords.push(new google.maps.LatLng(parseFloat(point[0]), parseFloat(point[1])));
         }
         //console.log(cords)
@@ -86,7 +91,8 @@ export class HomePage {
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillColor: '#FF0000',
-        fillOpacity: 0.35
+        fillOpacity: 0.35,
+        user_id : i
       }));
       cords = []
       polygons.setMap(this.map);
