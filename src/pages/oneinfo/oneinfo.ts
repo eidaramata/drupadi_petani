@@ -18,6 +18,8 @@ export class OneinfoPage {
 info = {"user_id" : "" }
 responseData : any
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
+
+
   }
 
   ionViewDidLoad() {
