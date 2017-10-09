@@ -21,8 +21,8 @@ export class OneblokPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController) {
         this.menu.swipeEnable(false);
-          this.navParams.data  = navParams.get('user_idd');
-    
+          this.navParams.data  = navParams.get('area_id');
+
        console.log(this.navParams.data);
   }
 

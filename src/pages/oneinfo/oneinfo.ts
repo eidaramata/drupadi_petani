@@ -15,10 +15,15 @@ import { RestProvider } from '../../providers/rest/rest'
   templateUrl: 'oneinfo.html',
 })
 export class OneinfoPage {
-info = {"user_id" : "" }
-responseData : any
+  userDetails: any;
+  responseData: any;
+  infoData = { "username": "", "action": "", "token": "" }
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
-
+    const data = JSON.parse(localStorage.getItem('userData'));
+    this.userDetails = data.userData;
+    this.infoData.username = this.userDetails.username;
+    this.infoData.token = this.userDetails.token;
+    this.infoData.action = "ionic_maps"
 
   }
 
