@@ -25,7 +25,7 @@ export class HomePage {
     this.mapData.token = this.userDetails.token;
 
     this.mapData.action = "ionic_maps";
-    console.log(this.mapData)
+    //console.log(this.mapData)
   }
   ionViewDidLoad() {
     this.loadMap();
@@ -44,7 +44,7 @@ export class HomePage {
       ]
     }; console.log(coordinatesx)*/
   }
-  blok(x) { alert(x);
+  blok(x) { //alert(x);
     this.navCtrl.push(OneblokPage, {
       area_id : x
     });
@@ -66,7 +66,7 @@ export class HomePage {
 		};
 
 		this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-		var imgl = [this.responseData.dtmaps["imglnorth"],this.responseData.dtmaps["imglsouth"], this.responseData.dtmaps["imgleast"], this.responseData.dtmaps["imglwest"]] //data server
+		/*var imgl = [this.responseData.dtmaps["imglnorth"],this.responseData.dtmaps["imglsouth"], this.responseData.dtmaps["imgleast"], this.responseData.dtmaps["imglwest"]] //data server
 		  var boundsImg = new google.maps.LatLngBounds(
 			new google.maps.LatLng( imgl[0], imgl[1] ), // lat bawah long atas X
 			new google.maps.LatLng( imgl[2], imgl[3] ), //lat atas long bawah X
@@ -74,12 +74,13 @@ export class HomePage {
 		var historicalOverlay = new google.maps.GroundOverlay(
 						this.rest.base_url + 'assets/attach/'+this.responseData.dtmaps["org_id"]+'/'+this.responseData.dtmaps["imgpath"],
 						boundsImg);
-			  historicalOverlay.setMap(this.map);
+			  historicalOverlay.setMap(this.map); */
 		  var polygon	= this.responseData.poly;
 		  var cords = [],areaid= '';
 		  for(var i=0; i < polygon.length;i++){
-			  var 	arr 	= polygon[i].split(" ");
+			  var arr 	= polygon[i].split(" ");
 					areaid = this.responseData.area_id[i];
+          //console.log(areaid)
 
 				for (var j=0; j < arr.length; j++) {
 					  var point = arr[j].split(",");
@@ -100,7 +101,9 @@ export class HomePage {
 			  }));
 
 
-				google.maps.event.addListener(polygons,'click', (event) => {
+				google.maps.event.addListener(polygons,'click',  (event) => {
+          //alert(this.area_id);
+
 					this.ngZone.run(()=>{
 						//alert(this.area_id);
 						var x = polygons.area_id;

@@ -18,12 +18,12 @@ export class OneblokPage {
   tab1Root = OneinfoPage;
   tab2Root = OnetindakanPage;
   tab3Root = OnekomentarPage;
-
+  area_id :any
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController) {
         this.menu.swipeEnable(false);
           this.navParams.data  = navParams.get('area_id');
-
-       console.log(this.navParams.data);
+          this.area_id = this.navParams.data
+       //console.log(this.navParams.data);
   }
 
 }
