@@ -31,7 +31,7 @@ export class LoginPage {
   login() {
 
     if (this.userD.username && this.userD.password) {
-      this.rest.restPost(this.userD, "ionlogin").then((result) => {
+      this.rest.restPost(this.userD, "auth/ionlogin").then((result) => {
         this.responseData = result;
         //console.log(this.responseData);
         if (this.responseData.userData) {

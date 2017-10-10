@@ -16,19 +16,19 @@ import { OneblokPage } from '../oneblok/oneblok';
   templateUrl: 'oneinfo.html',
 })
 export class OneinfoPage {
-  userDetails: any;
+  type :any;
+  mtanam :any;
+  statusn :any;  
+  area :any;
   responseData: any;
-  infoData = { "username": "", "area_id" : "", "action": "", "token": "" }
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public menu: MenuController) {
     this.menu.swipeEnable(false);
-    this.infoData.area_id = navParams.data
-    const data = JSON.parse(localStorage.getItem('userData'));
-    this.userDetails = data.userData;
-    this.infoData.username = this.userDetails.username;
-    this.infoData.token = this.userDetails.token;
-    this.infoData.action = "ionic_maps"
-    console.log(this.infoData)
-
+    //this.infoData.area_id = navParams.data;
+    const data = JSON.parse(localStorage.getItem('info'));
+    this.mtanam 	= data.m_tanam;
+	this.type 		= data.type; 
+	this.statusn 	= data.status; 
+	this.area 		= data.area; 
   }
 
   ionViewDidLoad() {
