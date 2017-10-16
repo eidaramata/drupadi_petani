@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Camera } from '@ionic-native/camera';
+import { NavController, LoadingController, NavParams, ToastController } from 'ionic-angular';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { RestProvider } from '../../providers/rest/rest'
+
+
 
 /**
  * Generated class for the OnekomentarPage page.
@@ -16,9 +20,9 @@ import { Camera } from '@ionic-native/camera';
 })
 export class OnekomentarPage {
   public base64Image: string;
+  imageFileName:any;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public camera : Camera) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public camera : Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public transfer: FileTransfer, public rest:RestProvider) {
   }
 
   ionViewDidLoad() {
@@ -35,5 +39,46 @@ export class OnekomentarPage {
      }, (err) => {
          console.log(err);
      });
+   }
+   uploadFile() {
+     let loader = this.loadingCtrl.create({
+       content: "Uploading..."
+     });
+     loader.present();
+     const fileTransfer: FileTransferObject = this.transfer.create();
+
+     let options: FileUploadOptions = {
+       fileKey: 'ionicfile',
+       fileName: 'ionicfile',
+       chunkedMode: false,
+       mimeType: "image/jpeg",
+       headers: {}
+     }
+
+     fileTransfer.upload(this.base64Image, this.rest.base_url+'/assets/attach/company_id/tindakan/', options)
+       .then((data) => {
+       console.log(data+" Uploaded Successfully");
+       //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
+       loader.dismiss();
+       this.presentToast("Image uploaded successfully");
+     }, (err) => {
+       console.log(err);
+       loader.dismiss();
+       this.presentToast(err);
+     });
+   }
+
+   presentToast(msg) {
+     let toast = this.toastCtrl.create({
+       message: msg,
+       duration: 6000,
+       position: 'bottom'
+     });
+
+     toast.onDidDismiss(() => {
+       console.log('Dismissed toast');
+     });
+
+     toast.present();
    }
 }

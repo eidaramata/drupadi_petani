@@ -1,7 +1,8 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ModalController  } from 'ionic-angular';
 import { OneblokPage } from '../oneblok/oneblok';
 import { RestProvider } from '../../providers/rest/rest'
+import { ModalPage } from '../modal/modal'
 
 
 declare var google;
@@ -18,7 +19,7 @@ export class HomePage {
 
   mapData = { "username": "", "action": "", "token": "" }
 
-  constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider) {
+  constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider,public modalCtrl: ModalController) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.mapData.username = this.userDetails.username;
@@ -38,7 +39,7 @@ export class HomePage {
     this.rest.restPost(this.mapData, "maps/welcome/ionic_maps").then((result) => {
       this.responseData = result;
       console.log(this.responseData)
-
+      localStorage.setItem('tindakan', JSON.stringify(this.responseData.action_plan));
 
       var centermap = [this.responseData.dtmaps["lat"], this.responseData.dtmaps["long"]] // data server
       let LatLng = new google.maps.LatLng(centermap[0], centermap[1]);
@@ -85,7 +86,7 @@ export class HomePage {
           area_id: areaid
         }));
         var y = this;
-        google.maps.event.addListener(polygons, 'click', function() { //alert(this.area_id);
+        google.maps.event.addListener(polygons, 'click', function() { alert(this.area_id);
           //google.maps.event.addListener(polygons,'click',  () => {
           y.ngZone.run(() => {
             var x = this.area_id;
@@ -100,5 +101,13 @@ export class HomePage {
 
     });
   }
+  showModal() {
+      // reset
+      // show modal|
+      let modal = this.modalCtrl.create(ModalPage);
+      modal.onDidDismiss(data => {
 
+      })
+      modal.present();
+  }
 }

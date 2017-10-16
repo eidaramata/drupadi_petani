@@ -1,0 +1,31 @@
+<!--
+  Generated template for the ModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>Pilih Proyek</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let item of proyek">
+  <ion-card-content>
+     <h2 [innerHTML]="item.subject"></h2>
+      <p> {{item.pry_name}} </p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <button ion-button outline small block color="danger" >Lihat</button>
+            <!--<button ion-button outline small block color="danger" (click)="polygon(item.id_order)" >Lihat</button>-->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+    </ion-card>
+</ion-content>

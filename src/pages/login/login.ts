@@ -29,7 +29,8 @@ export class LoginPage {
   //  console.log('ionViewDidLoad LoginPage');
   }
   login() {
-
+    this.userD.username = this.userD.username.toLowerCase()
+    console.log(this.userD)
     if (this.userD.username && this.userD.password) {
       this.rest.restPost(this.userD, "auth/ionlogin").then((result) => {
         this.responseData = result;
