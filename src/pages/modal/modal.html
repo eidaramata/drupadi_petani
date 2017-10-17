@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>Pilih Proyek</ion-title>
+    <ion-title text-center>Proyek</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,13 +16,11 @@
 <ion-content padding>
   <ion-card *ngFor="let item of proyek">
   <ion-card-content>
-     <h2 [innerHTML]="item.subject"></h2>
-      <p> {{item.pry_name}} </p>
+      <p>{{item.pry_name}} </p>
       <ion-grid>
         <ion-row>
           <ion-col>
-            <button ion-button outline small block color="danger" >Lihat</button>
-            <!--<button ion-button outline small block color="danger" (click)="polygon(item.id_order)" >Lihat</button>-->
+            <button ion-button outline small block color="danger" (click)="proyekMap(item.pry_id)" >Lihat</button>
           </ion-col>
         </ion-row>
       </ion-grid>

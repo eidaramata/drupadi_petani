@@ -32,10 +32,10 @@ export class RlaporanPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RlaporanPage');
-    this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
+    /*this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
       this.responseData = result;
       console.log(this.responseData)
-            });
+            });*/
   }
 
 }

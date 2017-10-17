@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, ViewController, NavParams } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest'
 
 /**
@@ -19,7 +19,7 @@ export class ModalPage {
   proyekData = { "username": "", "action": "", "token": "" }
   proyek:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public viewCtrl: ViewController) {
     const data = JSON.parse(localStorage.getItem('userData'));
     this.userDetails = data.userData;
     this.proyekData.username = this.userDetails.username;
@@ -30,7 +30,7 @@ export class ModalPage {
       this.responseData = result;
       this.proyek = this.responseData.projects
       localStorage.setItem('proyek', JSON.stringify(this.proyek));
-      console.log(this.proyek)
+      //console.log(this.proyek)
     });
   }
 
@@ -38,5 +38,9 @@ export class ModalPage {
     console.log('ionViewDidLoad ModalPage');
 
   }
+proyekMap(pry_id:any){
+  //console.log(pry_id)
+    this.viewCtrl.dismiss(pry_id);
 
+}
 }
