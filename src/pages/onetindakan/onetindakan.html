@@ -14,58 +14,47 @@
 
 
 <ion-content>
-
-<ion-grid>
-  <ion-row justify-content-between>
-    <ion-col col-3>
-      Tindakan
-    </ion-col>
-    <ion-col col-3>
-      Satuan
-    </ion-col>
-    <ion-col col-3>
-      Banyak
-    </ion-col>
-    <ion-col col-3>
-      Status
-    </ion-col>
-  </ion-row>
-  <ion-row justify-content-between>
-    <ion-col col-3>
-      {{action}}
-    </ion-col>
-    <ion-col col-3>
-      {{subaction}}
-   </ion-col>
-    <ion-col col-3>
-      {{amount}}
-    </ion-col>
-    <ion-col col-3>
-      <input type="checkbox" name="" value="">
-      <!--<select>
-      <option>Sehat</option>
-      <option>Kurang Sehat</option>
-      </select>-->
-    </ion-col>
-  </ion-row>
-  <!--<ion-row justify-content-between>
-    <ion-col col-3>
-      Beri pupuk
-    </ion-col>
-    <ion-col col-3>
-      liter
-    </ion-col>
-    <ion-col col-3>
-      2
-    </ion-col>
-    <ion-col col-3>
-      <select>
-      <option>Sehat</option>
-      <option>Kurang Sehat</option>
-      </select>
-    </ion-col>
-  </ion-row>-->
-</ion-grid>
-
-
+  <div *ngIf="area == area_id;else kosong">
+    <ion-grid>
+      <ion-row justify-content-between>
+        <ion-col col-3>
+          Tindakan
+        </ion-col>
+        <ion-col col-3>
+          Satuan
+        </ion-col>
+        <ion-col col-3>
+          Banyak
+        </ion-col>
+        <ion-col col-3>
+          Status
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-between>
+        <ion-col col-3>
+          {{action}}
+        </ion-col>
+        <ion-col col-3>
+          {{subaction}}
+        </ion-col>
+        <ion-col col-3>
+          {{amount}}
+        </ion-col>
+        <ion-col col-3>
+          <input type="checkbox" name="" value="">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+  <ng-template #kosong>
+    <div margin-left margin-top>
+      <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col col-8>
+            Tidak Ada Tindakan
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ng-template>
 </ion-content>

@@ -16,10 +16,41 @@
 <ion-content>
 <ion-card>
   <ion-card-content>
-    <p>Jenis : {{area}}</p>
-    <p>Type : {{type}}</p>
-    <p>Mulai Tanam : {{mtanam}} </p>
-    <p>Status : {{statusn}}</p>
+    <ion-grid>
+      <ion-row justify-content-start>
+        <ion-col col-5>
+          Jenis
+        </ion-col>
+        <ion-col col-5>
+        : {{area}}
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-start>
+        <ion-col col-5>
+          Type
+        </ion-col>
+        <ion-col col-5>
+        : {{type}}
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-start>
+        <ion-col col-5>
+          Mulai Tanam
+        </ion-col>
+        <ion-col col-5>
+       : {{mtanam}}
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-start>
+        <ion-col col-5>
+          Status
+        </ion-col>
+        <ion-col col-5>
+        : {{statusn}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card-content>
 </ion-card>
+
 </ion-content>

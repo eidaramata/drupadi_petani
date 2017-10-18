@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController, NavController, NavParams } from 'ionic-angular';
+import { MenuController, NavController, NavParams, LoadingController,  ToastController } from 'ionic-angular';
 import { OneinfoPage } from '../oneinfo/oneinfo';
 import { OnetindakanPage } from '../onetindakan/onetindakan';
 import { OnekomentarPage } from '../onekomentar/onekomentar';
@@ -24,31 +24,51 @@ export class OneblokPage {
   userDetails: any;
   responseData: any;
   area_id:any
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, public rest: RestProvider) {
+  loading:any
+  constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, public rest: RestProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.menu.swipeEnable(false);
     this.navParams.data = navParams.get('area_id');
+  }
+  /*ionViewDidLoad() {
+    this.getInfo()
+  }
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading..',
+    });
 
-    const data = JSON.parse(localStorage.getItem('userData'));
+    this.loading.present();
+  }
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
+  getInfo(){
+    this.showLoader()
+    const data = JSON.parse(localStorage.getItem('userDrupadi'));
     this.userDetails = data.userData;
     this.mapData.username = this.userDetails.username;
     this.mapData.token = this.userDetails.token;
     this.mapData.area_id = this.navParams.data
     this.mapData.action = "ionic_maps";
-  //  console.log(this.mapData)
       this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
         this.responseData = result;
-        console.log(this.responseData)
         localStorage.setItem('info', JSON.stringify(this.responseData));
         this.areas = this.responseData.area;
-      });
-      /*this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
-        this.responseData = result;
-        console.log(this.responseData)
-        localStorage.setItem('tindakan', JSON.stringify(this.responseData));
-        this.areas = this.responseData.area;
-      });*/
-
-
-  }
-
+        this.loading.dismiss();
+      }, (err) => {
+          this.presentToast("Tidak terhubung ke server");
+          this.loading.dismiss();
+        });
+  }*/
 }

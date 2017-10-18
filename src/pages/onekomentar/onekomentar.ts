@@ -55,7 +55,7 @@ export class OnekomentarPage {
        headers: {}
      }
 
-     fileTransfer.upload(this.base64Image, this.rest.base_url+'/assets/attach/company_id/tindakan/', options)
+     fileTransfer.upload(this.base64Image, 'http://192.168.0.17/camera_test/upload.php', options)
        .then((data) => {
        console.log(data+" Uploaded Successfully");
        //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"

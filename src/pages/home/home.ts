@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, ModalController  } from 'ionic-angular';
+import { NavController, ModalController,LoadingController,  ToastController  } from 'ionic-angular';
 import { OneblokPage } from '../oneblok/oneblok';
 import { RestProvider } from '../../providers/rest/rest'
 import { ModalPage } from '../modal/modal'
@@ -16,11 +16,11 @@ export class HomePage {
   map: any;
   userDetails: any;
   responseData: any;
-
+  loading:any
   mapData = { "username": "", "action": "", "token": "", "proyek_id":"" }
 
-  constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider,public modalCtrl: ModalController) {
-    const data = JSON.parse(localStorage.getItem('userData'));
+  constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider,public modalCtrl: ModalController,public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+    const data = JSON.parse(localStorage.getItem('userDrupadi'));
     this.userDetails = data.userData;
     this.mapData.username = this.userDetails.username;
     this.mapData.token = this.userDetails.token;
@@ -29,11 +29,31 @@ export class HomePage {
   ionViewDidLoad() {
     this.loadMap();
   }
+  showLoader() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Loading..',
+    });
 
+    this.loading.present();
+  }
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: true
+    });
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+
+    toast.present();
+  }
   loadMap() {
+    this.showLoader()
     this.rest.restPost(this.mapData, "maps/welcome/ionic_maps").then((result) => {
       this.responseData = result;
-      console.log(this.responseData)
+      //console.log(this.responseData)
       localStorage.setItem('tindakan', JSON.stringify(this.responseData.action_plan));
 
       var centermap = [this.responseData.dtmaps["lat"], this.responseData.dtmaps["long"]] // data server
@@ -81,7 +101,7 @@ export class HomePage {
           area_id: areaid
         }));
         var y = this;
-        google.maps.event.addListener(polygons, 'click', function() { alert(this.area_id);
+        google.maps.event.addListener(polygons, 'click', function() { //alert(this.area_id);
           //google.maps.event.addListener(polygons,'click',  () => {
           y.ngZone.run(() => {
             var x = this.area_id;
@@ -94,7 +114,12 @@ export class HomePage {
       }
       this.map.fitBounds(bounds);
 
+    }, (err) => {
+      this.presentToast("Tidak terhubung ke server");
+      this.loading.dismiss();
     });
+
+    this.loading.dismiss();
   }
   blok(x) {
     this.navCtrl.push(OneblokPage, {
@@ -108,7 +133,7 @@ export class HomePage {
       modal.onDidDismiss(data => {
         this.mapData.proyek_id = data;
         this.loadMap();
-        //console.log(this.mapData)
+        console.log(this.mapData)
       })
       modal.present();
   }
