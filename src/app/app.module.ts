@@ -9,7 +9,7 @@ import { BantuanPage } from '../pages/bantuan/bantuan';
 import { OneblokPage } from '../pages/oneblok/oneblok';
 import { OneinfoPage } from '../pages/oneinfo/oneinfo';
 import { OnetindakanPage } from '../pages/onetindakan/onetindakan';
-import { OnekomentarPage } from '../pages/onekomentar/onekomentar';
+import { OnephotoPage } from '../pages/onephoto/onephoto';
 import { RinfoPage } from '../pages/rinfo/rinfo';
 import { RtindakanPage } from '../pages/rtindakan/rtindakan';
 import { RkomentarPage } from '../pages/rkomentar/rkomentar';
@@ -33,7 +33,7 @@ import { RestProvider } from '../providers/rest/rest';
     OneblokPage,
     OneinfoPage,
     OnetindakanPage,
-    OnekomentarPage,
+    OnephotoPage,
     RinfoPage,
     RtindakanPage,
     RkomentarPage,
@@ -54,7 +54,7 @@ import { RestProvider } from '../providers/rest/rest';
     OneblokPage,
     OneinfoPage,
     OnetindakanPage,
-    OnekomentarPage,
+    OnephotoPage,
     RinfoPage,
     RtindakanPage,
     RkomentarPage,

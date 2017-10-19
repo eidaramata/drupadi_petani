@@ -19,7 +19,9 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="getItems($event)" (cancel)="onCancelSearchbar($event)" (clear)="onClearSearchbar($event)" placeholder="Cari proyek"></ion-searchbar>
+  <div *ngIf="proyek != 0;else kosong">
   <ion-card *ngFor="let item of proyek">
   <ion-card-content>
       <p>{{item.pry_name}} </p>
@@ -32,4 +34,16 @@
       </ion-grid>
     </ion-card-content>
     </ion-card>
+  </div>
+    <ng-template #kosong>
+      <div text-center margin-left margin-top>
+        <ion-grid>
+          <ion-row justify-content-center>
+            <ion-col col-8>
+              Tidak Ada Proyek
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ng-template>
 </ion-content>

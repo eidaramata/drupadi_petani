@@ -1,6 +1,6 @@
 <ion-header no-border>
   <ion-navbar text-center color="primary">
-  <ion-title>DRUPADI</ion-title>
+  <ion-title>{{namaproyek}}</ion-title>
   <ion-buttons left>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
@@ -16,10 +16,8 @@
 <ion-content>
   <div #map id="map">
   </div>
-  <!--<ion-fab right bottom>
-    <button ion-fab mini color="primary" (click)="showModal()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>-->
-<!--<button ion-button (click)=blok()>Blok</button>-->
-
-  <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+  <ion-fab right bottom>
+    <button ion-fab mini color="primary" (click)="loadMap()"><ion-icon name="refresh"></ion-icon>
+</button>
+  </ion-fab>
 </ion-content>

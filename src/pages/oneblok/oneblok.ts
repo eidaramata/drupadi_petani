@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MenuController, NavController, NavParams, LoadingController,  ToastController } from 'ionic-angular';
 import { OneinfoPage } from '../oneinfo/oneinfo';
 import { OnetindakanPage } from '../onetindakan/onetindakan';
-import { OnekomentarPage } from '../onekomentar/onekomentar';
+import { OnephotoPage } from '../onephoto/onephoto';
 import { RestProvider } from '../../providers/rest/rest'
 /**
  * Generated class for the OneblokPage page.
@@ -18,19 +18,20 @@ export class OneblokPage {
 
   tab1Root = OneinfoPage;
   tab2Root = OnetindakanPage;
-  tab3Root = OnekomentarPage;
+  tab3Root = OnephotoPage;
   mapData = { "area_id": "", "username": "", "action": "", "token": "" };
   areas: any;
   userDetails: any;
   responseData: any;
-  area_id:any
+  area_idd:any
   loading:any
   constructor(public navCtrl: NavController, public navParams: NavParams, public menu: MenuController, public rest: RestProvider, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.menu.swipeEnable(false);
     this.navParams.data = navParams.get('area_id');
+    this.area_idd = this.navParams.data;
   }
-  /*ionViewDidLoad() {
-    this.getInfo()
+  ionViewDidLoad() {
+
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
@@ -54,9 +55,11 @@ export class OneblokPage {
     toast.present();
   }
   getInfo(){
-    this.showLoader()
+    /*const data = JSON.parse(localStorage.getItem('info'));
+    this.area_idd = data*/
+      /*this.showLoader()
     const data = JSON.parse(localStorage.getItem('userDrupadi'));
-    this.userDetails = data.userData;
+  this.userDetails = data.userData;
     this.mapData.username = this.userDetails.username;
     this.mapData.token = this.userDetails.token;
     this.mapData.area_id = this.navParams.data
@@ -69,6 +72,6 @@ export class OneblokPage {
       }, (err) => {
           this.presentToast("Tidak terhubung ke server");
           this.loading.dismiss();
-        });
-  }*/
+        });*/
+  }
 }

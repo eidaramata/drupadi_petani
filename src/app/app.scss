@@ -1,6 +1,13 @@
 // http://ionicframework.com/docs/theming/
 
+@font-face{
+font-family: Roboto-regular;
+src: url('../assets/font/roboto-regular.woff2') format('woff2');
+}
 
+*{
+font-family:  Roboto-regular;
+}
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

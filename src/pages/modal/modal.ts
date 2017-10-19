@@ -19,6 +19,9 @@ export class ModalPage {
   proyekData = { "username": "", "action": "", "token": "" }
   proyek:any;
   loading:any;
+  items:any
+  searchQuery;
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public viewCtrl: ViewController, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     const data = JSON.parse(localStorage.getItem('userDrupadi'));
@@ -27,12 +30,16 @@ export class ModalPage {
     this.proyekData.token = this.userDetails.token;
     this.proyekData.action = "ionic_maps";
     //console.log(this.mapData)
-  }
+    this.searchQuery = '';
 
-  ionViewDidLoad() {
     this.getproyek()
 
   }
+
+  /*ionViewDidLoad() {
+    this.getproyek()
+
+  }*/
   dismiss(){
     this.viewCtrl.dismiss();
 
@@ -67,12 +74,37 @@ proyekMap(pry_id:any){
 getproyek(){
   this.showLoader()
   this.rest.restPost(this.proyekData, "maps/welcome/ionic_proyek").then((result) => {
-    this.responseData = result;
-    this.proyek = this.responseData.projects
+    this.responseData = result
+    localStorage.setItem('proyek', JSON.stringify(this.responseData.projects));
+    this.proyek = JSON.parse(localStorage.getItem('proyek'));
     this.loading.dismiss();
   }, (err) => {
       this.presentToast("Tidak terhubung ke server");
       this.loading.dismiss();
     });
 }
+getItems(search) {
+      this.proyek = JSON.parse(localStorage.getItem('proyek'));
+      var val = search.target.value;
+      console.log("search for: " + val);
+
+      if (val && val.trim() != '') {
+    this.proyek = this.proyek.filter((item) => {
+      let name: any = item;
+      console.log(name.pry_name)
+      return (name.pry_name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    })
+  }
+}
+onCancelSearchbar(search) {
+  this.proyek = JSON.parse(localStorage.getItem('proyek'));
+
+
+ }
+
+ onClearSearchbar(search) {
+   this.proyek = JSON.parse(localStorage.getItem('proyek'));
+
+
+ }
 }

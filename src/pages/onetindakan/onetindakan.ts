@@ -19,6 +19,7 @@ export class OnetindakanPage {
   amount:any;
   subaction:any;
   area:string
+  Status = {"stindakan" : "", "komentar" : ""}
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     const data_tindakan = JSON.parse(localStorage.getItem('tindakan'));
@@ -33,9 +34,9 @@ export class OnetindakanPage {
       this.subaction = data_tindakan[i]["subaction"]
       this.area = data_tindakan[i]["act_area_id"]
     /*console.log(this.area)*/
-
     }
     }
+    console.log(this.Status)
   }
 
   ionViewDidLoad() {

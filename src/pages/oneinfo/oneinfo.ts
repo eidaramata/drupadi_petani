@@ -34,7 +34,7 @@ export class OneinfoPage {
     this.mapData.token = this.userDetails.token;
     this.mapData.area_id = this.navParams.data
     this.mapData.action = "ionic_maps";
-
+    //console.log(this.mapData)
   }
 
   ionViewDidLoad() {
@@ -62,10 +62,15 @@ export class OneinfoPage {
     toast.present();
   }
 showInfo(){
+  /*const data = JSON.parse(localStorage.getItem('info'));
+  this.mtanam = data.m_tanam;
+  this.type = data.type;
+  this.statusn = data.status;
+  this.area = data.area;*/
   this.showLoader()
   this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
     this.responseData = result;
-    //console.log(this.responseData.area_id)
+    console.log(this.responseData)
     localStorage.setItem('info', JSON.stringify(this.responseData.area_id));
     this.mtanam = this.responseData.m_tanam;
     this.type = this.responseData.type;
