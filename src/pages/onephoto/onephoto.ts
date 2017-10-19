@@ -21,7 +21,7 @@ import { RestProvider } from '../../providers/rest/rest'
 export class OnephotoPage {
   public base64Image: string;
   imageFileName: any;
-  images = { "encode64": "" }
+  Photo = { "encode64": "" }
   responseData: any;
   loading: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public transfer: FileTransfer, public rest: RestProvider) {
@@ -64,15 +64,15 @@ export class OnephotoPage {
       // imageData is a base64 encoded string
       //this.base64Image = "data:image/jpeg;base64," + imageData;
       this.base64Image = imageData;
-      this.images.encode64 = imageData;
-      console.log(this.images)
+      this.Photo.encode64 = imageData;
+      console.log(this.Photo)
     }, (err) => {
       console.log(err);
     });
   }
   uploadFile() {
     this.showLoader()
-    this.rest.restPost(this.images, "xxx").then((result) => {
+    this.rest.restPost(this.Photo, "xxx").then((result) => {
       this.responseData = result;
       this.loading.dismiss();
     }, (err) => {

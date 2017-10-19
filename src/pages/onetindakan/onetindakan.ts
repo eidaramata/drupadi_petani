@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest'
 
 /**
  * Generated class for the OnetindakanPage page.
@@ -18,10 +19,11 @@ export class OnetindakanPage {
   action:any;
   amount:any;
   subaction:any;
-  area:string
-  Status = {"stindakan" : "", "komentar" : ""}
+  area:string;
+  Status = {"stindakan" : "", "komentar" : ""};
+  responseData
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
     const data_tindakan = JSON.parse(localStorage.getItem('tindakan'));
     const data_info = JSON.parse(localStorage.getItem('info'));
     this.area_id = data_info
@@ -41,6 +43,12 @@ export class OnetindakanPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OnetindakanPage');
+  }
+  sendTindakan(){
+    this.rest.restPost(this.Status, "xxxx").then((result) => {
+      this.responseData = result;
+      console.log(this.responseData)
+      });
   }
 
 }
