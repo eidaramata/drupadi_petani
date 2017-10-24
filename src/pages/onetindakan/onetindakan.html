@@ -14,112 +14,40 @@
 
 
 <ion-content>
-
-  <div *ngIf="area == area_id;else kosong">
-    <ion-card>
-
-  <ion-item>
-  <ion-label>Tindakan</ion-label>
-  <ion-label>: {{action}}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Satuan</ion-label>
-<ion-label>: {{subaction}}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Banyak</ion-label>
-<ion-label>: {{amount}}</ion-label>
-</ion-item>
-<ion-item>
-<ion-label>Status</ion-label>
-<ion-select [(ngModel)]="Status.stindakan" name="status">
-<ion-option value="1">Sudah dilakukan</ion-option>
-<ion-option value="2">Belum dilakukan</ion-option>
-</ion-select>
-</ion-item>
-<ion-list-header>
-    <ion-textarea placeholder="Komentar" [(ngModel)]="Status.komentar" name="komentar"></ion-textarea>
-</ion-list-header>
-<div text-right>
-  <button ion-button small color="danger" (click)="sendTindakan()">Kirim</button>
-</div>
-  </ion-card>
+  <div *ngIf="area == area_id && aksitindakan != undefined;else kosong">
+    <ng-container *ngFor="let item of aksitindakan">
+      <div *ngIf="item.act_area_id == area_id">
+        <ion-card>
+          <ion-item>
+            <ion-label>Tindakan</ion-label>
+            <ion-label>: {{item.action}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Satuan</ion-label>
+            <ion-label>: {{item.subaction}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Banyak</ion-label>
+            <ion-label>: {{item.amount}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Status</ion-label>
+            <ion-select [(ngModel)]="statustindakan[item.action_id]" name="stindakan">
+              <ion-option value="1">Sudah dilakukan</ion-option>
+              <ion-option value="2">Tidak dilakukan</ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-list-header>
+            <ion-textarea placeholder="Komentar" [(ngModel)]="komentar[item.action_id]" name="komentar"></ion-textarea>
+          </ion-list-header>
+          <div text-right>
+            <button ion-button small color="danger" (click)="sendTindakan(item.action_id);">Kirim</button>
+          </div>
+        </ion-card>
+      </div>
+    </ng-container>
   </div>
-  <!--<div *ngIf="area == area_id;else kosong">
-  <ion-card>
-    <ion-card-content>
-      <ion-grid>
-        <ion-row justify-content-start>
-          <ion-col col-4>
-            <strong>Tindakan</strong>
 
-          </ion-col>
-
-          <ion-col col-4>
-          : {{action}}
-          </ion-col>
-        </ion-row>
-
-        <ion-row justify-content-start>
-          <ion-col col-4>
-            <strong>Satuan</strong>
-          </ion-col>
-          <ion-col col-4>
-          : {{subaction}}
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-4>
-            <strong>Banyak</strong>
-          </ion-col>
-          <ion-col col-4>
-         : {{amount}}
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-4>
-              <strong>Status </strong>
-          </ion-col>
-          <ion-col col-4>
-            : <ion-checkbox color="danger"></ion-checkbox>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
-    </div>-->
-  <!--<div *ngIf="area == area_id;else kosong">
-    <ion-grid>
-      <ion-row justify-content-between text-center>
-        <ion-col col-3>
-          <strong>Tindakan</strong>
-        </ion-col>
-        <ion-col col-3>
-          <strong>Satuan</strong>
-        </ion-col>
-        <ion-col col-3>
-          <strong>Banyak</strong>
-        </ion-col>
-        <ion-col col-3>
-          <strong>Status</strong>
-        </ion-col>
-      </ion-row>
-      <ion-row justify-content-between text-center>
-        <ion-col col-3 border>
-          {{action}}
-        </ion-col>
-        <ion-col col-3>
-          {{subaction}}
-        </ion-col>
-        <ion-col col-3>
-          {{amount}}
-        </ion-col>
-        <ion-col col-3>
-          <ion-checkbox color="danger"></ion-checkbox>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>-->
 
   <ng-template #kosong>
     <div text-center margin-left margin-top>
