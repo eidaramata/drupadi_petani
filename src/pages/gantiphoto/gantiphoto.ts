@@ -12,10 +12,10 @@ import { RestProvider } from '../../providers/rest/rest'
 
 
 @Component({
-  selector: 'page-uploadphoto',
-  templateUrl: 'uploadphoto.html',
+  selector: 'page-gantiphoto',
+  templateUrl: 'gantiphoto.html',
 })
-export class UploadphotoPage {
+export class GantiphotoPage {
   loading
   action_id
   Photo = { "username": "", "token": "", "act_id": "", "img": "" };

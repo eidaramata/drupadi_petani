@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, NavParams, ToastController, ViewController, ModalController,AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestProvider } from '../../providers/rest/rest'
-import { UploadphotoPage } from '../uploadphoto/uploadphoto'
+import { GantiphotoPage } from '../gantiphoto/gantiphoto'
 
 
 
@@ -75,7 +75,7 @@ export class OnephotoPage {
 
   gantiPhoto(action_id:any) {
     console.log(action_id)
-    const profileModal = this.modalCtrl.create(UploadphotoPage, { action_id: action_id });
+    const profileModal = this.modalCtrl.create(GantiphotoPage, { action_id: action_id });
     profileModal.present();
   }
 

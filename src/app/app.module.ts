@@ -16,7 +16,7 @@ import { RkomentarPage } from '../pages/rkomentar/rkomentar';
 import { LoginPage } from '../pages/login/login'
 import { PenggunaPage } from '../pages/pengguna/pengguna'
 import { ModalPage } from '../pages/modal/modal'
-import { UploadphotoPage } from '../pages/uploadphoto/uploadphoto'
+import { GantiphotoPage } from '../pages/gantiphoto/gantiphoto'
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpModule } from "@angular/http";
@@ -41,7 +41,7 @@ import { RestProvider } from '../providers/rest/rest';
     LoginPage,
     PenggunaPage,
     ModalPage,
-    UploadphotoPage
+    GantiphotoPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -63,7 +63,7 @@ import { RestProvider } from '../providers/rest/rest';
     LoginPage,
     PenggunaPage,
     ModalPage,
-    UploadphotoPage
+    GantiphotoPage
   ],
   providers: [
     Camera,
