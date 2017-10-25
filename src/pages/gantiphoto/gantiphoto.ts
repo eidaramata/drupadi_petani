@@ -51,17 +51,15 @@ export class GantiphotoPage {
 
     toast.present();
   }
-  showLoader() {
+  showLoader(msg) {
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
+      content: msg,
     });
+
     this.loading.present();
   }
   ambilGambar(){
-    var loading = this.loadingCtrl.create({
-      content: 'Loading...',
-    });
-    loading.present();
+    this.showLoader('Loading...');
     const options: CameraOptions = {
       //destinationType: this.camera.DestinationType.DATA_URL,
       //targetWidth: 1000,
@@ -74,7 +72,7 @@ export class GantiphotoPage {
       // imageData is a base64 encoded string
       this.base64Image = "data:image/jpeg;base64," + imageData;
       this.Photo.img = this.base64Image;
-      loading.dismiss();
+      this.loading.dismiss();
       /*let alert = this.alertCtrl.create({
        title: 'img!',
        subTitle: this.Photo.img,
@@ -85,11 +83,10 @@ export class GantiphotoPage {
     }, (err) => {
       console.log(err);
     });
+    this.loading.dismiss();
   }
   uploadPhoto(action_id:any){
-    this.showLoader()
-
-
+    this.showLoader("Uploading...")
     console.log(this.Photo)
     if ((this.Photo.act_id && this.Photo.img) != (null || '')) {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {

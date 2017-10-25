@@ -64,9 +64,9 @@ export class OnephotoPage {
 
     toast.present();
   }
-  showLoader() {
+  showLoader(msg) {
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading...',
+      content: msg,
     });
 
     this.loading.present();
@@ -79,10 +79,7 @@ export class OnephotoPage {
   }
 
   takePicture() {
-    var loading = this.loadingCtrl.create({
-      content: 'Loading...',
-    });
-    loading.present();
+    this.showLoader('Loading...')
     const options: CameraOptions = {
       //destinationType: this.camera.DestinationType.DATA_URL,
       //targetWidth: 1000,
@@ -101,14 +98,15 @@ export class OnephotoPage {
        buttons: ['OK']
         });
         alert.present();*/
-       loading.dismiss();
+       this.loading.dismiss();
       console.log(this.Photo)
     }, (err) => {
       console.log(err);
     });
+    this.loading.dismiss();
   }
   uploadFile() {
-    this.showLoader()
+    this.showLoader('Uploading...')
     console.log(this.Photo)
     if ((this.Photo.act_id && this.Photo.img) != (null || '')) {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
