@@ -18,7 +18,6 @@ export class OneblokPage {
 
   tab1Root = OneinfoPage;
   tab2Root = OnetindakanPage;
-  tab3Root = OnephotoPage;
   mapData = { "area_id": "", "username": "", "action": "", "token": "" };
   areas: any;
   userDetails: any;

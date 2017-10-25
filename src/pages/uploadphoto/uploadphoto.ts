@@ -1,55 +1,42 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, NavParams, ToastController, ViewController, ModalController,AlertController } from 'ionic-angular';
+import { NavController, LoadingController, NavParams, ToastController, ViewController, ModalController,AlertController   } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestProvider } from '../../providers/rest/rest'
-import { UploadphotoPage } from '../uploadphoto/uploadphoto'
-
-
-
 
 /**
- * Generated class for the OnekomentarPage page.
+ * Generated class for the ShowphotoPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
 
-//@IonicPage()
-@Component({
-  selector: 'page-onephoto',
-  templateUrl: 'onephoto.html',
-})
-export class OnephotoPage {
-  public base64Image: string;
-  imageFileName: any;
-  userDetails: any;
-  action_id: any;
-  Photo = { "username": "", "token": "", "act_id": "", "img": "" };
-  responseData: any;
-  loading: any
-  base64: string
-  imagePath
-  Path
-  Photos
-  haha
-  constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public rest: RestProvider, public viewCtrl: ViewController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
 
-    this.imagePath = navParams.get('imagePath');
-    this.Path = navParams.get('Path');
-    this.action_id = navParams.get('action_id');
-    this.Photos = this.Path + this.imagePath;
-    this.Photo.act_id = this.action_id;
-    const data = JSON.parse(localStorage.getItem('userDrupadi'));
-    this.userDetails = data.userData;
-    this.Photo.username = this.userDetails.username;
-    this.Photo.token = this.userDetails.token;
-    console.log(this.Photo)
+@Component({
+  selector: 'page-uploadphoto',
+  templateUrl: 'uploadphoto.html',
+})
+export class UploadphotoPage {
+  loading
+  action_id
+  Photo = { "username": "", "token": "", "act_id": "", "img": "" };
+  base64Image: any
+  base64: any
+  userDetails: any;
+  responseData: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public rest: RestProvider, public viewCtrl: ViewController, public modalCtrl: ModalController,public alertCtrl: AlertController) {
+     this.action_id = navParams.get('action_id');
+     this.Photo.act_id = this.action_id;
+     const data = JSON.parse(localStorage.getItem('userDrupadi'));
+     this.userDetails = data.userData;
+     this.Photo.username = this.userDetails.username;
+     this.Photo.token = this.userDetails.token;
+     //console.log(this.action_id)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad OnekomentarPage');
+    console.log('ionViewDidLoad ShowphotoPage');
   }
-  dismiss() {
+  dismiss(){
     this.viewCtrl.dismiss();
   }
   presentToast(msg) {
@@ -69,18 +56,9 @@ export class OnephotoPage {
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...',
     });
-
     this.loading.present();
   }
-
-  gantiPhoto(action_id:any) {
-    console.log(action_id)
-    const profileModal = this.modalCtrl.create(UploadphotoPage, { action_id: action_id });
-    profileModal.present();
-  }
-
-  takePicture() {
-
+  ambilGambar(){
     const options: CameraOptions = {
       //destinationType: this.camera.DestinationType.DATA_URL,
       //targetWidth: 1000,
@@ -94,20 +72,21 @@ export class OnephotoPage {
       this.base64Image = "data:image/jpeg;base64," + imageData;
       this.base64 = imageData;
       this.Photo.img = this.base64Image;
-      let alert = this.alertCtrl.create({
+      /*let alert = this.alertCtrl.create({
        title: 'img!',
-       subTitle: this.base64Image,
+       subTitle: this.Photo.img,
        buttons: ['OK']
         });
-        alert.present();
-
-      console.log(this.Photo)
+        alert.present();*/
+      //console.log(this.Photo)
     }, (err) => {
       console.log(err);
     });
   }
-  uploadFile() {
+  uploadPhoto(action_id:any){
     this.showLoader()
+
+
     console.log(this.Photo)
     if ((this.Photo.act_id && this.Photo.img) != (null || '')) {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
@@ -123,6 +102,4 @@ export class OnephotoPage {
       this.presentToast("Ambil Gambar Dahulu");
     }
   }
-
-
 }
