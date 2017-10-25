@@ -20,7 +20,6 @@ export class GantiphotoPage {
   action_id
   Photo = { "username": "", "token": "", "act_id": "", "img": "" };
   base64Image: any
-  base64: any
   userDetails: any;
   responseData: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public rest: RestProvider, public viewCtrl: ViewController, public modalCtrl: ModalController,public alertCtrl: AlertController) {
@@ -59,19 +58,23 @@ export class GantiphotoPage {
     this.loading.present();
   }
   ambilGambar(){
+    var loading = this.loadingCtrl.create({
+      content: 'Loading...',
+    });
+    loading.present();
     const options: CameraOptions = {
       //destinationType: this.camera.DestinationType.DATA_URL,
       //targetWidth: 1000,
       //targetHeight: 1000
       //quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     }
     this.camera.getPicture(options).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Image = "data:image/jpeg;base64," + imageData;
-      this.base64 = imageData;
       this.Photo.img = this.base64Image;
+      loading.dismiss();
       /*let alert = this.alertCtrl.create({
        title: 'img!',
        subTitle: this.Photo.img,

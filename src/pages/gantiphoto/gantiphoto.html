@@ -9,20 +9,20 @@
   <ion-navbar color="dark">
     <ion-title text-center>{{action_id}}</ion-title>
     <ion-buttons start>
-        <button ion-button (click)="dismiss()">
+      <button ion-button (click)="dismiss()">
           <span ion-text color="primary" showWhen="ios">Kembali</span>
           <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
         </button>
-      </ion-buttons>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content>
-  <ion-card *ngIf="base64">
+  <ion-card *ngIf="base64Image">
     <ion-card-content>
       <div text-center>
-        <img [src]="base64" *ngIf="base64" />
+        <img src="{{base64Image}}" *ngIf="base64Image">
       </div>
     </ion-card-content>
   </ion-card>

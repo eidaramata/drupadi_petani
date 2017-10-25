@@ -18,7 +18,6 @@
 
 
 <ion-content>
-    {{base64Image}}
   <div *ngIf="imagePath != null;else kosongs">
     <ion-card *ngIf="Photos">
       <ion-card-content>
@@ -33,7 +32,7 @@
   <ng-template #kosongs>
     <div text-center margin-left margin-top>
       <ion-grid>
-        <ion-row justify-content-center *ngIf="!base64">
+        <ion-row justify-content-center *ngIf="!base64Image">
           <ion-col col-8>
             Tidak Ada Photo
           </ion-col>
@@ -45,10 +44,10 @@
       </ion-card-content>
       </ion-card>-->
       <ion-grid>
-        <ion-card *ngIf="base64">
+        <ion-card *ngIf="base64Image">
           <ion-card-content>
             <div text-center>
-              <img [src]="base64" *ngIf="base64" />
+              <img src="{{base64Image}}" *ngIf="base64Image">
             </div>
           </ion-card-content>
         </ion-card>

@@ -27,7 +27,6 @@ export class OnephotoPage {
   Photo = { "username": "", "token": "", "act_id": "", "img": "" };
   responseData: any;
   loading: any
-  base64: string
   imagePath
   Path
   Photos
@@ -80,27 +79,29 @@ export class OnephotoPage {
   }
 
   takePicture() {
-
+    var loading = this.loadingCtrl.create({
+      content: 'Loading...',
+    });
+    loading.present();
     const options: CameraOptions = {
       //destinationType: this.camera.DestinationType.DATA_URL,
       //targetWidth: 1000,
       //targetHeight: 1000
       //quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     }
     this.camera.getPicture(options).then((imageData) => {
       // imageData is a base64 encoded string
       this.base64Image = "data:image/jpeg;base64," + imageData;
-      this.base64 = imageData;
       this.Photo.img = this.base64Image;
-      let alert = this.alertCtrl.create({
+      /*let alert = this.alertCtrl.create({
        title: 'img!',
-       subTitle: this.base64Image,
+       subTitle: this.Photo.img,
        buttons: ['OK']
         });
-        alert.present();
-
+        alert.present();*/
+       loading.dismiss();
       console.log(this.Photo)
     }, (err) => {
       console.log(err);
@@ -111,7 +112,7 @@ export class OnephotoPage {
     console.log(this.Photo)
     if ((this.Photo.act_id && this.Photo.img) != (null || '')) {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
-        this.responseData = result;
+      this.responseData = result;
       this.presentToast("Berhasil Upload");
       this.loading.dismiss();
       }, (err) => {
