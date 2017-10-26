@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, NavParams, ToastController, ViewController, ModalController,AlertController   } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { RestProvider } from '../../providers/rest/rest'
-
 /**
  * Generated class for the ShowphotoPage page.
  *
@@ -18,12 +17,14 @@ import { RestProvider } from '../../providers/rest/rest'
 export class GantiphotoPage {
   loading
   action_id
-  Photo = { "username": "", "token": "", "act_id": "", "img": "" };
+  Photo = { "username": "", "token": "", "act_id": "", "img": "", "area_id" : "" };
   base64Image: any
   userDetails: any;
   responseData: any;
+  image_path
   constructor(public navCtrl: NavController, public navParams: NavParams, public camera: Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public rest: RestProvider, public viewCtrl: ViewController, public modalCtrl: ModalController,public alertCtrl: AlertController) {
      this.action_id = navParams.get('action_id');
+     this.Photo.area_id  = navParams.get('area_ids');
      this.Photo.act_id = this.action_id;
      const data = JSON.parse(localStorage.getItem('userDrupadi'));
      this.userDetails = data.userData;
@@ -35,13 +36,13 @@ export class GantiphotoPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShowphotoPage');
   }
-  dismiss(){
-    this.viewCtrl.dismiss();
+  dismiss(img){
+    this.viewCtrl.dismiss(img);
   }
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 6000,
+      duration: 4000,
       position: 'bottom'
     });
 
@@ -88,9 +89,11 @@ export class GantiphotoPage {
   uploadPhoto(action_id:any){
     this.showLoader("Uploading...")
     console.log(this.Photo)
-    if ((this.Photo.act_id && this.Photo.img) != (null || '')) {
+    if ((this.Photo.act_id && this.Photo.img) != ('' && undefined)) {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
         this.responseData = result;
+      this.image_path = this.responseData.error["text"]
+      this.dismiss(this.image_path)
       this.presentToast("Berhasil Upload");
       this.loading.dismiss();
       }, (err) => {

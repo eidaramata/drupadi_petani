@@ -41,7 +41,7 @@
             <ion-textarea placeholder="Komentar" [(ngModel)]="komentar[item.action_id]" name="komentar"></ion-textarea>
           </ion-list-header>
           <div text-right>
-            -<button ion-button small color="dark"  (click)="viewPhoto(item.action_id)">Foto</button>
+            <button ion-button small color="dark"  (click)="viewPhoto(item.action_id)">Foto</button>
             <button ion-button small color="danger" (click)="sendTindakan(item.action_id)">Kirim</button>
           </div>
         </ion-card>

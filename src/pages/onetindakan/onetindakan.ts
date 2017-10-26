@@ -30,7 +30,8 @@ export class OnetindakanPage {
   imagePath
   Image
   Fotos = "http://3.bp.blogspot.com/-bhG66kbQqUM/Ucvsa4lN6vI/AAAAAAAAQ-U/YD4DKWT_7O8/s1600/14.jpg"
-
+  resultpath
+  bom
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public modalCtrl: ModalController) {
     this.data_tindakan = JSON.parse(localStorage.getItem('tindakan'));
     this.aksitindakan = this.data_tindakan.action_plan
@@ -38,7 +39,7 @@ export class OnetindakanPage {
     if (this.aksitindakan != undefined) {
       const data_info = JSON.parse(localStorage.getItem('info'));
       this.area_id = data_info
-      //console.log(this.area_id)
+      console.log(this.area_id)
       for (var i = 0; i < this.aksitindakan.length; i++) {
         if (this.aksitindakan[i]["act_area_id"] == this.area_id) {
           this.area = this.aksitindakan[i]["act_area_id"]
@@ -52,6 +53,8 @@ export class OnetindakanPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad OnetindakanPage');
+    //console.log(this.resultpath)
+    this.resultpath = this.resultpath
   }
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -93,7 +96,7 @@ export class OnetindakanPage {
     //console.log(this.Status)
     //console.log(this.komentar[action_id])
     this.showLoader()
-    if(this.Status.stindakan != null) {
+    if(this.Status.stindakan != ('' && undefined)) {
     this.rest.restPost(this.Status, "maps/welcome/update_tindakan").then((result) => {
       this.responseData = result;
       //console.log(this.responseData.error["text"])
@@ -109,14 +112,21 @@ export class OnetindakanPage {
   }
   }
   viewPhoto(action_id: any){
+    //console.log(this.resultpath, "2")
+
     for (var i = 0; i < this.aksitindakan.length; i++) {
       if (this.aksitindakan[i]["action_id"] == action_id) {
         this.imagePath = this.aksitindakan[i]["imagepath"]
         //console.log(this.imagePath)
-        this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] + '/tindakan/';
+        this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] +'/tindakan/'+ this.area_id + '/';
         //this.Image = this.Fotos
-        const profileModal = this.modalCtrl.create(OnephotoPage, { Path: this.Image, imagePath:this.imagePath, action_id: action_id });
-        profileModal.present();
+        //this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] + '/tindakan/';
+        const modal = this.modalCtrl.create(OnephotoPage, { Path: this.Image, imagePath:this.imagePath, resultPath : this.resultpath, action_id: action_id, area_id : this.area_id });modal.onDidDismiss(data => {
+          this.resultpath = data
+          this.ionViewDidLoad()
+        })
+        modal.present();
+
       }
     }
   }

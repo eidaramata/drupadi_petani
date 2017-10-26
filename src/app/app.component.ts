@@ -26,7 +26,7 @@ export class MyApp {
     this.pages = [
       { title: 'Ringkasan Laporan', icon: 'mail', component: RlaporanPage },
       { title: 'Bantuan', icon: 'help-circle', component: BantuanPage },
-      { title: 'Logout', icon: 'walk', component: PenggunaPage }
+      /*{ title: 'Logout', icon: 'walk', component: PenggunaPage }*/
 
     ];
 
