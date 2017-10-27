@@ -55,46 +55,39 @@ export class OnephotoPage {
 
   ionViewDidLoad() {
     this.resultImage()
-    this.resultgantip = this.resultgantip
+    console.log('ionViewDidLoad OnephotoPage');
+    //console.log(this.resultgantip)
   }
   resultImage() {
     this.showLoader('Loading...')
-    var gantiimg = this.resultgantip
-    //console.log(gantiimg)
     var resultone = this.navParams.get('resultPath');
-    //console.log(resultone)
+    console.log(resultone)
     this.imagePath = this.navParams.get('imagePath');
 
-    if (gantiimg != (null && '' && undefined)) {
-      this.imagePath1 = gantiimg
-      this.Path = this.navParams.get('Path');
-      this.Photos = this.Path + gantiimg;
-      this.loading.dismiss();
-      console.log("1", this.imagePath)
-    } else if ((this.imagePath) != ('' && null)) {
-      this.imagePath1 = this.imagePath
-      this.Path = this.navParams.get('Path');
-      this.Photos = this.Path + this.imagePath1;
-      this.loading.dismiss();
-      console.log("2")
-    } else if (resultone != (null && '' && undefined)) {
+    if ((resultone != (null && '')) && (this.imagePath != resultone) && (this.action_id == this.navParams.get('photoact') )) {
       this.imagePath1 = resultone
       this.Path = this.navParams.get('Path');
       this.Photos = this.Path + resultone;
       this.loading.dismiss();
-      console.log("3", this.imagePath)
+      console.log("1", this.imagePath, this.action_id)
+    } else if (this.imagePath != ('' && null)) {
+      this.imagePath1 = this.imagePath
+      this.Path = this.navParams.get('Path');
+      this.Photos = this.Path + this.imagePath1;
+      this.loading.dismiss();
+      console.log("2", this.imagePath)
     } else if (this.imagePath == '') {
       this.imagePath1 = this.imagePath
       this.loading.dismiss();
-      console.log("4", this.imagePath)
+      console.log("3", this.imagePath)
     } else {
       this.imagePath1 = this.imagePath
       this.loading.dismiss();
-      console.log("5", this.imagePath)
+      console.log("4", this.imagePath)
     }
   }
-  dismiss(img) {
-    this.viewCtrl.dismiss(img);
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -121,7 +114,7 @@ export class OnephotoPage {
     console.log(action_id, area_ids)
     const modal = this.modalCtrl.create(GantiphotoPage, { action_id: action_id, area_ids: area_ids });
     modal.onDidDismiss(data => {
-      this.resultgantip = data
+      this.dismiss()
       this.ionViewDidLoad()
     })
     modal.present();
@@ -161,9 +154,10 @@ export class OnephotoPage {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
         this.responseData = result;
         console.log(this.responseData)
-        this.result_path = this.responseData.error["text"]
-        this.dismiss(this.result_path)
+        var foto = {"imgpath":this.responseData.error["text"], "acts_id" : this.Photo.act_id}
+        localStorage.setItem('foto', JSON.stringify(foto));
         this.presentToast("Berhasil Upload");
+        this.dismiss()
         this.loading.dismiss();
       }, (err) => {
         this.loading.dismiss();
@@ -174,6 +168,4 @@ export class OnephotoPage {
       this.presentToast("Ambil Gambar Dahulu");
     }
   }
-
-
 }

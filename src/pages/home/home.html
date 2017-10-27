@@ -1,4 +1,5 @@
 <ion-header no-border>
+    <!--<div *ngIf="responseData">-->
   <ion-navbar text-center color="primary">
   <ion-title>{{namaproyek}}</ion-title>
   <ion-buttons left>
@@ -11,13 +12,31 @@
      <button ion-button icon-only (click)="showModal()"><ion-icon name="search"></ion-icon></button>
    </ion-buttons>
   </ion-navbar>
+<!--</div>-->
 </ion-header>
 
-<ion-content>
+<ion-content margin-right>
   <div #map id="map">
   </div>
-  <ion-fab right bottom>
-    <button ion-fab mini color="primary" (click)="loadMap()"><ion-icon name="refresh"></ion-icon>
-</button>
-  </ion-fab>
+  <!--<div *ngIf="responseData;else blank">
+
+    <ion-fab right bottom>
+      <button ion-fab mini color="primary" (click)="loadMap()"><ion-icon name="refresh"></ion-icon>
+  </button>
+    </ion-fab>
+  </div>
+  <ng-template #blank >
+    <ion-card class="marginTop">
+  <ion-card-header>
+    Maaf
+  </ion-card-header>
+  <ion-card-content>
+    Tidak terhubung dengan server
+  </ion-card-content>
+</ion-card>
+<div text-center>
+  <button ion-button color="primary"(click)="loadMap()">Muat ulang</button>
+</div>
+
+  </ng-template>-->
 </ion-content>

@@ -28,6 +28,7 @@ export class HomePage {
   }
   ionViewDidEnter() {
     this.loadMap();
+    localStorage.removeItem('foto')
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
@@ -39,9 +40,9 @@ export class HomePage {
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 3000,
+      duration: 4000,
       position: 'bottom',
-      dismissOnPageChange: true
+      dismissOnPageChange: false //true
     });
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');

@@ -29,9 +29,8 @@ export class OnetindakanPage {
   loading
   imagePath
   Image
-  Fotos = "http://3.bp.blogspot.com/-bhG66kbQqUM/Ucvsa4lN6vI/AAAAAAAAQ-U/YD4DKWT_7O8/s1600/14.jpg"
   resultpath
-  bom
+  actpath
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public modalCtrl: ModalController) {
     this.data_tindakan = JSON.parse(localStorage.getItem('tindakan'));
     this.aksitindakan = this.data_tindakan.action_plan
@@ -51,10 +50,15 @@ export class OnetindakanPage {
     }
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad OnetindakanPage');
     //console.log(this.resultpath)
-    this.resultpath = this.resultpath
+    if(JSON.parse(localStorage.getItem('foto')) != null){
+    var rupload = JSON.parse(localStorage.getItem('foto'));
+    this.resultpath = rupload["imgpath"]
+    this.actpath = rupload["acts_id"]
+    }
+    console.log(rupload)
   }
   presentToast(msg) {
     let toast = this.toastCtrl.create({
@@ -121,9 +125,8 @@ export class OnetindakanPage {
         this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] +'/tindakan/'+ this.area_id + '/';
         //this.Image = this.Fotos
         //this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] + '/tindakan/';
-        const modal = this.modalCtrl.create(OnephotoPage, { Path: this.Image, imagePath:this.imagePath, resultPath : this.resultpath, action_id: action_id, area_id : this.area_id });modal.onDidDismiss(data => {
-          this.resultpath = data
-          this.ionViewDidLoad()
+        const modal = this.modalCtrl.create(OnephotoPage, { Path: this.Image, imagePath:this.imagePath, resultPath : this.resultpath, action_id: action_id, area_id : this.area_id, photoact : this.actpath });modal.onDidDismiss(data => {
+          this.ionViewDidEnter()
         })
         modal.present();
 

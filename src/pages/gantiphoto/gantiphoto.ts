@@ -36,13 +36,13 @@ export class GantiphotoPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ShowphotoPage');
   }
-  dismiss(img){
-    this.viewCtrl.dismiss(img);
+  dismiss(){
+    this.viewCtrl.dismiss();
   }
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 4000,
+      duration: 3000,
       position: 'bottom'
     });
 
@@ -87,22 +87,24 @@ export class GantiphotoPage {
     this.loading.dismiss();
   }
   uploadPhoto(action_id:any){
-    this.showLoader("Uploading...")
+    this.showLoader('Uploading...')
     console.log(this.Photo)
-    if ((this.Photo.act_id && this.Photo.img) != ('' && undefined)) {
+    /*if ((this.Photo.act_id && this.Photo.img) != ('' && undefined)) {*/
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
         this.responseData = result;
-      this.image_path = this.responseData.error["text"]
-      this.dismiss(this.image_path)
-      this.presentToast("Berhasil Upload");
-      this.loading.dismiss();
+        console.log(this.responseData)
+        var foto = {"imgpath":this.responseData.error["text"], "acts_id" : this.Photo.act_id}
+        localStorage.setItem('foto', JSON.stringify(foto));
+        this.presentToast("Berhasil Upload");
+        this.dismiss()
+        this.loading.dismiss();
       }, (err) => {
         this.loading.dismiss();
         this.presentToast("Gagal Upload");
       });
-    } else {
+    /*} else {
       this.loading.dismiss();
       this.presentToast("Ambil Gambar Dahulu");
-    }
+    }*/
   }
 }
