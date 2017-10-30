@@ -34,11 +34,11 @@ export class OnetindakanPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public modalCtrl: ModalController) {
     this.data_tindakan = JSON.parse(localStorage.getItem('tindakan'));
     this.aksitindakan = this.data_tindakan.action_plan
-    console.log(this.data_tindakan)
+    //console.log(this.data_tindakan)
     if (this.aksitindakan != undefined) {
       const data_info = JSON.parse(localStorage.getItem('info'));
       this.area_id = data_info
-      console.log(this.area_id)
+      //console.log(this.area_id)
       for (var i = 0; i < this.aksitindakan.length; i++) {
         if (this.aksitindakan[i]["act_area_id"] == this.area_id) {
           this.area = this.aksitindakan[i]["act_area_id"]
@@ -58,7 +58,7 @@ export class OnetindakanPage {
     this.resultpath = rupload["imgpath"]
     this.actpath = rupload["acts_id"]
     }
-    console.log(rupload)
+    //console.log(rupload)
   }
   presentToast(msg) {
     let toast = this.toastCtrl.create({
