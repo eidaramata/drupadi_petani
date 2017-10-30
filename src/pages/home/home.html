@@ -15,9 +15,13 @@
 <!--</div>-->
 </ion-header>
 
-<ion-content margin-right>
+<ion-content>
   <div #map id="map">
   </div>
+  <ion-fab right bottom>
+    <button ion-fab mini color="primary" (click)="loadMap()"><ion-icon name="refresh"></ion-icon>
+</button>
+  </ion-fab>
   <!--<div *ngIf="responseData;else blank">
 
     <ion-fab right bottom>

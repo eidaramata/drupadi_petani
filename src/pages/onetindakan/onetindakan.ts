@@ -63,7 +63,7 @@ export class OnetindakanPage {
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 6000,
+      duration: 3000,
       position: 'bottom'
     });
 
@@ -97,13 +97,13 @@ export class OnetindakanPage {
     if (this.statustindakan[action_id]) {
       this.Status.stindakan = this.statustindakan[action_id]
     }
-    //console.log(this.Status)
+    console.log(this.Status)
     //console.log(this.komentar[action_id])
     this.showLoader()
     if(this.Status.stindakan != ('' && undefined)) {
     this.rest.restPost(this.Status, "maps/welcome/update_tindakan").then((result) => {
       this.responseData = result;
-      //console.log(this.responseData.error["text"])
+      console.log(this.responseData)
       this.loading.dismiss();
       this.presentToast(this.responseData.error["text"]);
     }, (err) => {
@@ -115,22 +115,13 @@ export class OnetindakanPage {
     this.presentToast("Isikan terlebih dahulu");
   }
   }
-  viewPhoto(action_id: any){
+  viewPhoto(action_id: any, imagep:any){
     //console.log(this.resultpath, "2")
-
-    for (var i = 0; i < this.aksitindakan.length; i++) {
-      if (this.aksitindakan[i]["action_id"] == action_id) {
-        this.imagePath = this.aksitindakan[i]["imagepath"]
-        //console.log(this.imagePath)
+        this.imagePath = imagep;
         this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] +'/tindakan/'+ this.area_id + '/';
-        //this.Image = this.Fotos
-        //this.Image = this.rest.base_url + 'assets/attach/' + this.data_tindakan.dtmaps["org_id"] + '/tindakan/';
         const modal = this.modalCtrl.create(OnephotoPage, { Path: this.Image, imagePath:this.imagePath, resultPath : this.resultpath, action_id: action_id, area_id : this.area_id, photoact : this.actpath });modal.onDidDismiss(data => {
           this.ionViewDidEnter()
         })
         modal.present();
-
-      }
-    }
   }
 }

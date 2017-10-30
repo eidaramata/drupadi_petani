@@ -75,6 +75,7 @@ getproyek(){
   this.showLoader()
   this.rest.restPost(this.proyekData, "maps/welcome/ionic_proyek").then((result) => {
     this.responseData = result
+    //console.log(this.responseData)
     localStorage.setItem('proyek', JSON.stringify(this.responseData.projects));
     this.proyek = JSON.parse(localStorage.getItem('proyek'));
     this.loading.dismiss();

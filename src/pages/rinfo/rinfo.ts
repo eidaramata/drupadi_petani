@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { RestProvider } from '../../providers/rest/rest'
 
 /**
  * Generated class for the RinfoPage page.
@@ -15,11 +16,18 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class RinfoPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  ringkasaninfo = { "area_id": "", "username": "", "action": "", "token": "" };
+  userDetails: any;
+  responseData: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RinfoPage');
+    /*this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
+      this.responseData = result;
+      console.log(this.responseData)
+            });*/
   }
 
 }

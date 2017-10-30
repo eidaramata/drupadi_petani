@@ -31,18 +31,18 @@
             <ion-label>: {{item.amount}}</ion-label>
           </ion-item>
           <ion-item>
-            <ion-label>Status</ion-label>
-            <ion-select [(ngModel)]="statustindakan[item.action_id]" name="stindakan">
-              <ion-option value="1">Sudah dilakukan</ion-option>
-              <ion-option value="2">Tidak dilakukan</ion-option>
-            </ion-select>
+              <ion-label>Status</ion-label>
+              <ion-select [(ngModel)]="statustindakan[item.action_id]" name="stindakan">
+                <ion-option value="1">Sudah dilakukan</ion-option>
+                <ion-option value="2">Tidak dilakukan</ion-option>
+              </ion-select>
           </ion-item>
           <ion-list-header>
-            <ion-textarea placeholder="Komentar" [(ngModel)]="komentar[item.action_id]" name="komentar"></ion-textarea>
+              <ion-textarea placeholder="Isikan Komentar" [(ngModel)]="komentar[item.action_id]" name="komentar"></ion-textarea>
           </ion-list-header>
           <div text-right>
-            <button ion-button small color="dark"  (click)="viewPhoto(item.action_id)">Foto</button>
-            <button ion-button small color="danger" (click)="sendTindakan(item.action_id)">Kirim</button>
+            <button ion-button small color="dark" (click)="viewPhoto(item.action_id, item.imagepath) ">Lihat Foto</button>
+            <button ion-button small color="danger" (click)="sendTindakan(item.action_id)">Simpan</button>
           </div>
         </ion-card>
       </div>
