@@ -54,7 +54,7 @@ export class HomePage {
     this.showLoader()
     this.rest.restPost(this.mapData, "maps/welcome/ionic_maps").then((result) => {
       this.responseData = result;
-      console.log(this.responseData)
+      console.log(this.responseData);
       localStorage.setItem('tindakan', JSON.stringify(this.responseData));
       this.namaproyek = this.responseData.dtmaps["pry_name"];
       var centermap = [this.responseData.dtmaps["lat"], this.responseData.dtmaps["long"]] // data server
@@ -115,12 +115,13 @@ export class HomePage {
       }
       this.map.fitBounds(bounds);
 
+
     }, (err) => {
       this.presentToast("Tidak terhubung ke server");
       this.loading.dismiss();
     });
-
     this.loading.dismiss();
+
   }
   blok(x) {
     this.navCtrl.push(OneblokPage, {
@@ -129,7 +130,7 @@ export class HomePage {
   }
   showModal() {
       // reset
-      // show modal|
+      // show modal
       let modal = this.modalCtrl.create(ModalPage);
       modal.onDidDismiss(data => {
         this.mapData.proyek_id = data;

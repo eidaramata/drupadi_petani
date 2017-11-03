@@ -87,16 +87,16 @@ export class GantiphotoPage {
     this.loading.dismiss();
   }
   uploadPhoto(action_id:any){
-    this.showLoader('Uploading...')
-    console.log(this.Photo)
+    this.showLoader('Uploading...');
+    console.log(this.Photo);
     if ((this.Photo.act_id && this.Photo.img) != ('' && undefined)) {
       this.rest.restPost(this.Photo, "maps/welcome/upload_tind_image").then((result) => {
         this.responseData = result;
-        console.log(this.responseData)
+        console.log(this.responseData);
         var foto = {"imgpath":this.responseData.error["text"], "acts_id" : this.Photo.act_id}
         localStorage.setItem('foto', JSON.stringify(foto));
         this.presentToast("Berhasil Upload");
-        this.dismiss()
+        this.dismiss();
         this.loading.dismiss();
       }, (err) => {
         this.loading.dismiss();

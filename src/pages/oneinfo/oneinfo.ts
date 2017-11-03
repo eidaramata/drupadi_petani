@@ -24,6 +24,7 @@ export class OneinfoPage {
   userDetails: any;
   loading:any
   mapData = { "area_id": "", "username": "", "action": "", "token": "" };
+  usia
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public menu: MenuController, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     this.menu.swipeEnable(false);
@@ -76,6 +77,17 @@ showInfo(){
     this.type = this.responseData.type;
     this.statusn = this.responseData.status;
     this.area = this.responseData.area;
+    var hari = new Date().getDate();
+    var bulan = new Date().getMonth()+1;
+    var tahun = new Date().getFullYear();
+    var now = tahun + "/" + bulan + "/"+ hari;
+    var datenow = new Date(now);
+    var nam = this.mtanam.replace('-', '/')
+    var datetanam = new Date(nam);
+    var timeDiff = Math.abs(datenow.getTime() - datetanam.getTime());
+    this.usia = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    console.log(this.usia)
+
     this.loading.dismiss();
   }, (err) => {
       this.presentToast("Tidak terhubung ke server");

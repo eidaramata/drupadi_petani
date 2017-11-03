@@ -100,7 +100,7 @@ export class OnetindakanPage {
     console.log(this.Status)
     //console.log(this.komentar[action_id])
     this.showLoader()
-    if(this.Status.stindakan != ('' && undefined)) {
+    if(this.Status.stindakan && this.Status.komentar != ('' && undefined)) {
     this.rest.restPost(this.Status, "maps/welcome/update_tindakan").then((result) => {
       this.responseData = result;
       console.log(this.responseData)

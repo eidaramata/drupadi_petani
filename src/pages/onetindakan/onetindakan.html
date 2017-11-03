@@ -41,7 +41,7 @@
           </ng-template>
           <div *ngIf="item.info != null; else kosongzz" >
           <ion-list-header>
-              <ion-textarea placeholder="{{item.info}}" [(ngModel)]="komentar[item.action_id]" name="komentar"></ion-textarea>
+              <ion-textarea value="{{item.info}}" [(ngModel)]="komentar[item.action_id]" name="komentar"></ion-textarea>
           </ion-list-header>
             </div>
               <ng-template #kosongzz>

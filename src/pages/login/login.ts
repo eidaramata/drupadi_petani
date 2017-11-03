@@ -15,19 +15,18 @@ import { HomePage } from '../home/home'
   templateUrl: 'login.html',
 })
 export class LoginPage {
-  userDrupadi = { "username": "", "password": "" };
+  userDrupadi = { "username": "", "password": "", "action" : "loginionic"  };
   responseData: any;
   loading: any;
   pesan: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest:RestProvider, private toastCtrl: ToastController, public loadingCtrl: LoadingController) {
-    if(localStorage.getItem('userDrupadi')){
-      this.navCtrl.setRoot(HomePage);
-    }
+
   }
 
-  ionViewDidLoad() {
-  //  console.log('ionViewDidLoad LoginPage');
-  }
+  ionViewDidEnter() {
+    if(localStorage.getItem('userDrupadi')){
+      this.navCtrl.setRoot(HomePage);
+    }  }
   login() {
     this.showLoader();
     this.userDrupadi.username = this.userDrupadi.username.toLowerCase()
