@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="twitter">
   <div *ngIf="area == area_id && aksitindakan != undefined;else kosong">
     <ng-container *ngFor="let item of aksitindakan">
       <div *ngIf="item.act_area_id == area_id">
@@ -20,12 +20,12 @@
               <ion-label>Status</ion-label>
               <ion-select [(ngModel)]="statustindakan[item.action_id]" name="stindakan">
                 <div *ngIf="item.status == 1; else dua">
-                  <ion-option selected value="1">Sudah dilakukan</ion-option>
+                  <ion-option selected="true" value="1">Sudah dilakukan</ion-option>
                   <ion-option  value="2">Tidak dilakukan</ion-option>
                 </div>
                 <ng-template #dua>
                   <ion-option value="1">Sudah dilakukan</ion-option>
-                  <ion-option selected value="2">Tidak dilakukan</ion-option>
+                  <ion-option selected="true" value="2">Tidak dilakukan</ion-option>
                 </ng-template>
               </ion-select>
           </ion-item>

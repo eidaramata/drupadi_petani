@@ -63,15 +63,10 @@ export class OneinfoPage {
     toast.present();
   }
 showInfo(){
-  /*const data = JSON.parse(localStorage.getItem('info'));
-  this.mtanam = data.m_tanam;
-  this.type = data.type;
-  this.statusn = data.status;
-  this.area = data.area;*/
   this.showLoader()
   this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
     this.responseData = result;
-    //console.log(this.responseData)
+    console.log(this.responseData)
     localStorage.setItem('info', JSON.stringify(this.responseData.area_id));
     this.mtanam = this.responseData.m_tanam;
     this.type = this.responseData.type;
@@ -80,13 +75,11 @@ showInfo(){
     var hari = new Date().getDate();
     var bulan = new Date().getMonth()+1;
     var tahun = new Date().getFullYear();
-    var now = tahun + "/" + bulan + "/"+ hari;
-    var datenow = new Date(now);
-    var nam = this.mtanam.replace('-', '/')
-    var datetanam = new Date(nam);
+    var datenow = new Date(tahun + "/" + bulan + "/"+ hari);
+    var datetanam = new Date(this.mtanam.replace('-', '/'));
     var timeDiff = Math.abs(datenow.getTime() - datetanam.getTime());
     this.usia = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    console.log(this.usia)
+    //console.log(this.usia)
 
     this.loading.dismiss();
   }, (err) => {

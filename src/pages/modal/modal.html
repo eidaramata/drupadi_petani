@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title text-center>Proyek</ion-title>
+    <ion-title text-center>Riwayat Proyek</ion-title>
     <ion-buttons start>
         <button ion-button (click)="dismiss()">
           <span ion-text color="primary" showWhen="ios">Cancel</span>
@@ -19,10 +19,11 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content class="twitter">
   <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="getItems($event)" (cancel)="onCancelSearchbar($event)" (clear)="onClearSearchbar($event)" placeholder="Cari proyek"></ion-searchbar>
   <div *ngIf="proyek != 0;else kosong">
-  <ion-card *ngFor="let item of proyek">
+    <div *ngFor="let item of proyek">
+  <ion-card *ngIf="item.pry_name != namajalan && item.pry_id != proyekjalans" >
   <ion-card-content>
       <p>{{item.pry_name}} </p>
       <ion-grid>
@@ -34,6 +35,7 @@
       </ion-grid>
     </ion-card-content>
     </ion-card>
+  </div>
   </div>
     <ng-template #kosong>
       <div text-center margin-left margin-top>

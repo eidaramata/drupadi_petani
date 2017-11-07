@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams, LoadingController,  ToastController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest'
+import { RmapPage } from '../rmap/rmap'
 
 /**
  * Generated class for the ModalPage page.
@@ -16,11 +17,13 @@ import { RestProvider } from '../../providers/rest/rest'
 export class ModalPage {
   userDetails: any;
   responseData: any;
-  proyekData = { "username": "", "action": "", "token": "" }
+  proyekData = { "username": "", "action": "", "token": "", "pry_id": "" }
   proyek:any;
   loading:any;
   items:any
   searchQuery;
+  namajalan
+  proyekjalans
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public viewCtrl: ViewController, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
@@ -68,15 +71,21 @@ export class ModalPage {
 proyekMap(pry_id:any){
   //console.log(pry_id)
   //  this.showLoader()
-    this.viewCtrl.dismiss(pry_id);
+  //  this.viewCtrl.dismiss(pry_id);
     //this.loading.dismiss();
+    this.navCtrl.push(RmapPage, {
+      pry_id: pry_id
+    });
 }
 getproyek(){
   this.showLoader()
   this.rest.restPost(this.proyekData, "maps/welcome/ionic_proyek").then((result) => {
     this.responseData = result
-    console.log(this.responseData)
+    //console.log(this.responseData)
     localStorage.setItem('proyek', JSON.stringify(this.responseData.projects));
+    var proyekjalan = JSON.parse(localStorage.getItem('tindakan'));
+    this.namajalan = proyekjalan.dtmaps["pry_name"];
+    this.proyekjalans = proyekjalan.dtmaps["pry_id"];
     this.proyek = JSON.parse(localStorage.getItem('proyek'));
     this.loading.dismiss();
   }, (err) => {
@@ -92,20 +101,16 @@ getItems(search) {
       if (val && val.trim() != '') {
     this.proyek = this.proyek.filter((item) => {
       let name: any = item;
-      console.log(name.pry_name)
+      //console.log(name.pry_name)
       return (name.pry_name.toLowerCase().indexOf(val.toLowerCase()) > -1);
     })
   }
 }
 onCancelSearchbar(search) {
   this.proyek = JSON.parse(localStorage.getItem('proyek'));
-
-
  }
 
  onClearSearchbar(search) {
    this.proyek = JSON.parse(localStorage.getItem('proyek'));
-
-
  }
 }

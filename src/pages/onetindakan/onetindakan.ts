@@ -53,7 +53,7 @@ export class OnetindakanPage {
   ionViewDidEnter() {
     console.log('ionViewDidLoad OnetindakanPage');
     //console.log(this.resultpath)
-    if(JSON.parse(localStorage.getItem('foto')) != null){
+    if(JSON.parse(localStorage.getItem('foto')) != (null && '')){
     var rupload = JSON.parse(localStorage.getItem('foto'));
     this.resultpath = rupload["imgpath"]
     this.actpath = rupload["acts_id"]
@@ -96,9 +96,9 @@ export class OnetindakanPage {
 
     if (this.statustindakan[action_id]) {
       this.Status.stindakan = this.statustindakan[action_id]
+      console.log(this.Status.stindakan)
     }
     console.log(this.Status)
-    //console.log(this.komentar[action_id])
     this.showLoader()
     if(this.Status.stindakan && this.Status.komentar != ('' && undefined)) {
     this.rest.restPost(this.Status, "maps/welcome/update_tindakan").then((result) => {

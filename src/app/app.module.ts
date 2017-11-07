@@ -12,11 +12,11 @@ import { OnetindakanPage } from '../pages/onetindakan/onetindakan';
 import { OnephotoPage } from '../pages/onephoto/onephoto';
 import { RinfoPage } from '../pages/rinfo/rinfo';
 import { RtindakanPage } from '../pages/rtindakan/rtindakan';
-import { RkomentarPage } from '../pages/rkomentar/rkomentar';
 import { LoginPage } from '../pages/login/login'
 import { PenggunaPage } from '../pages/pengguna/pengguna'
 import { ModalPage } from '../pages/modal/modal'
 import { GantiphotoPage } from '../pages/gantiphoto/gantiphoto'
+import { RmapPage } from '../pages/rmap/rmap'
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpModule } from "@angular/http";
@@ -37,11 +37,11 @@ import { RestProvider } from '../providers/rest/rest';
     OnephotoPage,
     RinfoPage,
     RtindakanPage,
-    RkomentarPage,
     LoginPage,
     PenggunaPage,
     ModalPage,
-    GantiphotoPage
+    GantiphotoPage,
+    RmapPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -59,11 +59,11 @@ import { RestProvider } from '../providers/rest/rest';
     OnephotoPage,
     RinfoPage,
     RtindakanPage,
-    RkomentarPage,
     LoginPage,
     PenggunaPage,
     ModalPage,
-    GantiphotoPage
+    GantiphotoPage,
+    RmapPage
   ],
   providers: [
     Camera,

@@ -94,10 +94,10 @@ export class HomePage {
         var polygons = (new google.maps.Polygon({
           paths: cords,
           map: this.map,
-          strokeColor: '#FF0000',
+          strokeColor: 'green',
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: '#FF0000',
+          fillColor: 'green',
           fillOpacity: 0.35,
           area_id: areaid
         }));
@@ -115,13 +115,11 @@ export class HomePage {
       }
       this.map.fitBounds(bounds);
 
-
     }, (err) => {
       this.presentToast("Tidak terhubung ke server");
       this.loading.dismiss();
     });
     this.loading.dismiss();
-
   }
   blok(x) {
     this.navCtrl.push(OneblokPage, {
@@ -132,11 +130,11 @@ export class HomePage {
       // reset
       // show modal
       let modal = this.modalCtrl.create(ModalPage);
-      modal.onDidDismiss(data => {
-        this.mapData.proyek_id = data;
-        this.loadMap();
-        console.log(this.mapData)
-      })
+      //modal.onDidDismiss(data => {
+        //this.mapData.proyek_id = data;
+        //this.loadMap();
+        //console.log(this.mapData)
+      //})
       modal.present();
   }
 }
