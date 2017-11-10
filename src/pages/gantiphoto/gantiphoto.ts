@@ -54,6 +54,7 @@ export class GantiphotoPage {
   }
   showLoader(msg) {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: msg,
     });
 

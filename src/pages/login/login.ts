@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { MenuController,NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest'
 import { HomePage } from '../home/home'
 /**
@@ -19,7 +19,8 @@ export class LoginPage {
   responseData: any;
   loading: any;
   pesan: any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest:RestProvider, private toastCtrl: ToastController, public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest:RestProvider, private toastCtrl: ToastController, public loadingCtrl: LoadingController, public menu: MenuController) {
+  menu.swipeEnable(false);
 
   }
 
@@ -55,6 +56,7 @@ export class LoginPage {
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: 'Authentication...',
     });
 

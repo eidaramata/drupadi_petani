@@ -63,7 +63,7 @@ export class OnephotoPage {
     var resultone = this.navParams.get('resultPath');
     console.log(resultone)
     this.imagePath = this.navParams.get('imagePath');
-    
+
       //sehabis ganti photo
     if ((resultone != (null && '')) && (this.imagePath != resultone) && (this.action_id == this.navParams.get('photoact') )) {
       this.imagePath1 = resultone
@@ -105,6 +105,7 @@ export class OnephotoPage {
   }
   showLoader(msg) {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: msg,
     });
 

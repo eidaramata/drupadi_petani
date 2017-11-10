@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ViewController, NavParams, LoadingController,  ToastController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest'
-import { RmapPage } from '../rmap/rmap'
 
 /**
  * Generated class for the ModalPage page.
@@ -49,6 +48,7 @@ export class ModalPage {
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: 'Loading..',
     });
 
@@ -70,11 +70,16 @@ export class ModalPage {
   }
 proyekMap(pry_id:any){
   //console.log(pry_id)
-  //  this.showLoader()
-  //  this.viewCtrl.dismiss(pry_id);
-    //this.loading.dismiss();
-    this.navCtrl.push(RmapPage, {
-      pry_id: pry_id
+    this.proyekData.pry_id = pry_id;
+  	this.showLoader()
+  	this.rest.restPost(this.proyekData, "maps/welcome/detail_proyek").then((result) => {
+  	this.responseData = result;
+  		//console.log(this.responseData) ;
+      this.viewCtrl.dismiss(pry_id);
+  	this.loading.dismiss();
+    }, (err) => {
+        this.presentToast("Tidak terhubung ke server");
+        this.loading.dismiss();
     });
 }
 getproyek(){

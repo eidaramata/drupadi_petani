@@ -32,6 +32,7 @@ export class HomePage {
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: 'Loading..',
     });
 
@@ -79,11 +80,13 @@ export class HomePage {
         boundsImg);
       historicalOverlay.setMap(this.map);
       var polygon = this.responseData.poly;
+
+      // cek polygon
+      if((polygon.length > 0) && (polygon["0"] != '')) {
       var cords = [], areaid = '';
       for (var i = 0; i < polygon.length; i++) {
         var arr = polygon[i].split(" ");
         areaid = this.responseData.area_id[i];
-
         for (var j = 0; j < arr.length; j++) {
           var point = arr[j].split(",");
           //console.log(point)
@@ -113,7 +116,11 @@ export class HomePage {
 
         cords = [];
       }
+      // polygon bounds
       this.map.fitBounds(bounds);
+      }
+      // image bounds
+      this.map.fitBounds(boundsImg);
 
     }, (err) => {
       this.presentToast("Tidak terhubung ke server");
@@ -130,11 +137,12 @@ export class HomePage {
       // reset
       // show modal
       let modal = this.modalCtrl.create(ModalPage);
-      //modal.onDidDismiss(data => {
-        //this.mapData.proyek_id = data;
-        //this.loadMap();
-        //console.log(this.mapData)
-      //})
+      modal.onDidDismiss(data => {
+        this.mapData.proyek_id = data;
+        if(data != undefined)
+        this.loadMap();
+      //console.log(this.mapData)
+      })
       modal.present();
   }
 }

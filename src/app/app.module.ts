@@ -16,7 +16,6 @@ import { LoginPage } from '../pages/login/login'
 import { PenggunaPage } from '../pages/pengguna/pengguna'
 import { ModalPage } from '../pages/modal/modal'
 import { GantiphotoPage } from '../pages/gantiphoto/gantiphoto'
-import { RmapPage } from '../pages/rmap/rmap'
 
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { HttpModule } from "@angular/http";
@@ -41,7 +40,6 @@ import { RestProvider } from '../providers/rest/rest';
     PenggunaPage,
     ModalPage,
     GantiphotoPage,
-    RmapPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -63,7 +61,6 @@ import { RestProvider } from '../providers/rest/rest';
     PenggunaPage,
     ModalPage,
     GantiphotoPage,
-    RmapPage
   ],
   providers: [
     Camera,

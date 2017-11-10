@@ -33,6 +33,7 @@ export class OneblokPage {
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: 'Loading..',
     });
 

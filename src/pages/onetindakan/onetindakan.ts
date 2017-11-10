@@ -75,6 +75,7 @@ export class OnetindakanPage {
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
+      spinner: 'ios',
       content: 'Mengirim...',
     });
 
