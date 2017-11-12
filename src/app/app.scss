@@ -11,6 +11,10 @@ font-family:  Roboto-regular;
 .twitterz{
   background-color:#F5F8FA;
 }
+.scroll-content {
+  overflow-y : auto  ! important ;
+}
+
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These

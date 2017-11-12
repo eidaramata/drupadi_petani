@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NavController, ModalController,LoadingController,  ToastController  } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, ToastController  } from 'ionic-angular';
 import { OneblokPage } from '../oneblok/oneblok';
 import { RestProvider } from '../../providers/rest/rest'
 import { ModalPage } from '../modal/modal'
@@ -16,19 +16,34 @@ export class HomePage {
   map: any;
   userDetails: any;
   responseData: any;
-  loading:any
-  mapData = { "username": "", "action": "", "token": "", "proyek_id":"" }
-  namaproyek:any
-  constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider,public modalCtrl: ModalController,public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+  loading: any
+  mapData = { "username": "", "action": "", "token": "", "proyek_id": "" }
+  namaproyek: any
+  constructor(public navCtrl: NavController, public ngZone: NgZone, public rest: RestProvider, public modalCtrl: ModalController, public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
     const data = JSON.parse(localStorage.getItem('userDrupadi'));
     this.userDetails = data.userData;
     this.mapData.username = this.userDetails.username;
     this.mapData.token = this.userDetails.token;
     this.mapData.action = "ionic_maps";
   }
-  ionViewDidEnter() {
+  ionViewDidLoad() {
+    console.log('did load')
     this.loadMap();
-    localStorage.removeItem('foto')
+  }
+  ionViewDidLeave() {
+    console.log('did leave');
+  }
+  ionViewWillEnter() {
+    console.log('will enter');
+    this.resizeMap()
+    //refresh jika ada perubahan tindakan dan foto
+    var tchange = JSON.parse(localStorage.getItem('tchange'));
+    var tfoto = JSON.parse(localStorage.getItem('foto'));
+    if (tchange == "true" || tfoto != null) {
+      this.loadMap();
+      localStorage.removeItem('tchange')
+      localStorage.removeItem('foto')
+    }
   }
   showLoader() {
     this.loading = this.loadingCtrl.create({
@@ -82,45 +97,46 @@ export class HomePage {
       var polygon = this.responseData.poly;
 
       // cek polygon
-      if((polygon.length > 0) && (polygon["0"] != '')) {
-      var cords = [], areaid = '';
-      for (var i = 0; i < polygon.length; i++) {
-        var arr = polygon[i].split(" ");
-        areaid = this.responseData.area_id[i];
-        for (var j = 0; j < arr.length; j++) {
-          var point = arr[j].split(",");
-          //console.log(point)
-          cords.push(new google.maps.LatLng(parseFloat(point[0]), parseFloat(point[1])));
-        }
-        bounds.extend(cords[cords.length - 1])
+      if ((polygon.length > 0) && (polygon["0"] != '')) {
+        var cords = [], areaid = '';
+        for (var i = 0; i < polygon.length; i++) {
+          var arr = polygon[i].split(" ");
+          areaid = this.responseData.area_id[i];
+          for (var j = 0; j < arr.length; j++) {
+            var point = arr[j].split(",");
+            //console.log(point)
+            cords.push(new google.maps.LatLng(parseFloat(point[0]), parseFloat(point[1])));
+          }
+          bounds.extend(cords[cords.length - 1])
 
-        var polygons = (new google.maps.Polygon({
-          paths: cords,
-          map: this.map,
-          strokeColor: 'green',
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillColor: 'green',
-          fillOpacity: 0.35,
-          area_id: areaid
-        }));
-        var y = this;
-        google.maps.event.addListener(polygons, 'click', function() { //alert(this.area_id);
-          //google.maps.event.addListener(polygons,'click',  () => {
-          y.ngZone.run(() => {
-            var x = this.area_id;
-            y.blok(x);
+          var polygons = (new google.maps.Polygon({
+            paths: cords,
+            map: this.map,
+            strokeColor: 'green',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: 'green',
+            fillOpacity: 0.35,
+            area_id: areaid
+          }));
+          var y = this;
+          google.maps.event.addListener(polygons, 'click', function() { //alert(this.area_id);
+            //google.maps.event.addListener(polygons,'click',  () => {
+            y.ngZone.run(() => {
+              var x = this.area_id;
+              y.blok(x);
+            });
           });
-        });
-        //polygons.setMap(this.map);
+          //polygons.setMap(this.map);
 
-        cords = [];
+          cords = [];
+        }
+        // polygon bounds
+        this.map.fitBounds(bounds);
+      } else {
+        // image bounds
+        this.map.fitBounds(boundsImg);
       }
-      // polygon bounds
-      this.map.fitBounds(bounds);
-      }
-      // image bounds
-      this.map.fitBounds(boundsImg);
 
     }, (err) => {
       this.presentToast("Tidak terhubung ke server");
@@ -128,21 +144,28 @@ export class HomePage {
     });
     this.loading.dismiss();
   }
+
+  // agar setelah navpush peta tidak pecah
+  private resizeMap(): void {
+    if (this.map) {
+      google.maps.event.trigger(this.map, 'resize');
+    }
+  }
   blok(x) {
     this.navCtrl.push(OneblokPage, {
-      area_id: x
+      area_id: x,
     });
   }
   showModal() {
-      // reset
-      // show modal
-      let modal = this.modalCtrl.create(ModalPage);
-      modal.onDidDismiss(data => {
-        this.mapData.proyek_id = data;
-        if(data != undefined)
+    // reset
+    // show modal
+    let modal = this.modalCtrl.create(ModalPage);
+    modal.onDidDismiss(data => {
+      this.mapData.proyek_id = data;
+      if (data != undefined)
         this.loadMap();
       //console.log(this.mapData)
-      })
-      modal.present();
+    })
+    modal.present();
   }
 }

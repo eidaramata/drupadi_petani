@@ -1,4 +1,4 @@
-<ion-content class="twitter">
+<ion-content class="twitter scroll-content">
   <div *ngIf="area == area_id && aksitindakan != undefined;else kosong">
     <ng-container *ngFor="let item of aksitindakan">
       <div *ngIf="item.act_area_id == area_id">
@@ -57,7 +57,6 @@
       </div>
     </ng-container>
   </div>
-
 
   <ng-template #kosong>
     <div text-center margin-left margin-top>
