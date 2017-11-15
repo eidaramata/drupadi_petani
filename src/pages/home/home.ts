@@ -57,8 +57,9 @@ export class HomePage {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 4000,
-      position: 'bottom',
-      dismissOnPageChange: false //true
+      position: 'top',
+      dismissOnPageChange: false,
+      showCloseButton: true
     });
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');

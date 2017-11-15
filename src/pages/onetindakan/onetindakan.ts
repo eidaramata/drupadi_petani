@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController,ToastController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController,ToastController, ModalController, AlertController } from 'ionic-angular';
 import { RestProvider } from '../../providers/rest/rest'
 import { OnephotoPage } from '../onephoto/onephoto'
 
@@ -31,7 +31,7 @@ export class OnetindakanPage {
   urlPath
   resultpath
   actpath
-  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider, public loadingCtrl: LoadingController, public toastCtrl: ToastController, public modalCtrl: ModalController, public alertCtrl: AlertController) {
     this.data_tindakan = JSON.parse(localStorage.getItem('tindakan'));
     this.aksitindakan = this.data_tindakan.action_plan
     console.log(this.data_tindakan)
@@ -64,8 +64,9 @@ export class OnetindakanPage {
   presentToast(msg) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 3000,
-      position: 'bottom'
+      duration: 2000,
+      position: 'top',
+      showCloseButton: true
     });
 
     toast.onDidDismiss(() => {
@@ -82,7 +83,7 @@ export class OnetindakanPage {
 
     this.loading.present();
   }
-  sendTindakan(action_id: any) {
+  sendTindakan(action_id: any, action:any) {
 
     const data = JSON.parse(localStorage.getItem('userDrupadi'));
     this.userDetails = data.userData;
@@ -120,24 +121,45 @@ export class OnetindakanPage {
     else{
       this.Status.stindakan = this.statustindakan[action_id]
     }
-    console.log(this.Status)
-    this.showLoader()
-    if(this.Status.stindakan && this.Status.komentar != ('' || undefined)) {
-    this.rest.restPost(this.Status, "maps/welcome/update_tindakan").then((result) => {
-      this.responseData = result;
-      console.log(this.responseData)
-      var tchange = "true";
-      localStorage.setItem('tchange', JSON.stringify(tchange));
-      this.loading.dismiss();
-      this.presentToast(this.responseData.error["text"]);
-    }, (err) => {
-      this.loading.dismiss();
-      this.presentToast("Gagal Mengirim");
+
+    let confirm = this.alertCtrl.create({
+      title: 'Konfirmasi',
+      message: 'Apa anda yakin untuk menyimpan tindakan ' + action + '?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Kembali clicked');
+          }
+        },
+        {
+          text: 'Oke',
+          handler: () => {
+            console.log(this.Status)
+
+            this.showLoader()
+            if(this.Status.stindakan && this.Status.komentar != ('' || undefined)) {
+            this.rest.restPost(this.Status, "maps/welcome/update_tindakan").then((result) => {
+              this.responseData = result;
+              console.log(this.responseData)
+              var tchange = "true";
+              localStorage.setItem('tchange', JSON.stringify(tchange));
+              this.loading.dismiss();
+              this.presentToast("Berhasil tersimpan");
+            }, (err) => {
+              this.loading.dismiss();
+              this.presentToast("Gagal Mengirim");
+            });
+          }else {
+            this.loading.dismiss();
+            this.presentToast("Isikan terlebih dahulu");
+          }
+          }
+        }
+      ]
     });
-  }else {
-    this.loading.dismiss();
-    this.presentToast("Isikan terlebih dahulu");
-  }
+    confirm.present();
+
   }
   viewPhoto(action_id: any, imagep:any){
     //console.log(this.resultpath, "2")

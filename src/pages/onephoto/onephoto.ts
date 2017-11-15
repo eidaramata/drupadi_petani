@@ -96,7 +96,8 @@ export class OnephotoPage {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 4000,
-      position: 'bottom'
+      position: 'top',
+      showCloseButton: true
     });
 
     toast.onDidDismiss(() => {

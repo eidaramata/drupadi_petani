@@ -43,7 +43,8 @@ export class GantiphotoPage {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,
-      position: 'bottom'
+      position: 'top',
+      showCloseButton: true
     });
 
     toast.onDidDismiss(() => {

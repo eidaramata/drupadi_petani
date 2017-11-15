@@ -5,4 +5,17 @@ page-onetindakan {
 .twitter{
   background:#F5F8FA;
 }
+ion-grid {
+  height: 100%;
+  ion-row {
+    margin-top:0px ! important ;
+    margin-bottom:-20px ! important ;
+  }
+  ion-row.top {
+    margin-top:-10px ! important ;
+    margin-bottom:0px ! important ;
+  }
+}
+
+
 }

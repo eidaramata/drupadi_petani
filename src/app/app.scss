@@ -11,9 +11,16 @@ font-family:  Roboto-regular;
 .twitterz{
   background-color:#F5F8FA;
 }
+
+// remove gray line and point bug
 .scroll-content {
   overflow-y : auto  ! important ;
 }
+//border color tabs active
+/*.tabs-md[tabsHighlight="true"] .tab-highlight {
+    background-color: red;
+}*/
+
 
 // App Global Sass
 // --------------------------------------------------
