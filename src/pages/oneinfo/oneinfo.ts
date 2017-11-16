@@ -68,7 +68,7 @@ showInfo(){
   this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
     this.responseData = result;
     //console.log(this.responseData)
-    localStorage.setItem('info', JSON.stringify(this.responseData.area_id));
+    //localStorage.setItem('info', JSON.stringify(this.responseData.area_id));
     this.mtanam = this.responseData.m_tanam;
     this.type = this.responseData.type;
     this.statusn = this.responseData.status;

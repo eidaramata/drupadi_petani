@@ -31,7 +31,7 @@ export class HomePage {
     this.loadMap();
   }
   ionViewDidLeave() {
-    console.log('did leave');
+    //console.log('did leave');
   }
   ionViewWillEnter() {
     console.log('will enter');
@@ -40,9 +40,9 @@ export class HomePage {
     var tchange = JSON.parse(localStorage.getItem('tchange'));
     var tfoto = JSON.parse(localStorage.getItem('foto'));
     if (tchange == "true" || tfoto != null) {
-      this.loadMap();
       localStorage.removeItem('tchange')
       localStorage.removeItem('foto')
+      this.loadMap();
     }
   }
   showLoader() {
@@ -73,6 +73,9 @@ export class HomePage {
       this.responseData = result;
       console.log(this.responseData);
       localStorage.setItem('tindakan', JSON.stringify(this.responseData));
+      // untuk dikirim ke ringkasasan laporan
+      var rpryk = {"pry_name": this.responseData.dtmaps["pry_name"], "pry_id": this.responseData.dtmaps["pry_id"] }
+      localStorage.setItem('rpryk', JSON.stringify(rpryk));
       this.namaproyek = this.responseData.dtmaps["pry_name"];
       var centermap = [this.responseData.dtmaps["lat"], this.responseData.dtmaps["long"]] // data server
       let LatLng = new google.maps.LatLng(centermap[0], centermap[1]);
@@ -164,6 +167,7 @@ export class HomePage {
     modal.onDidDismiss(data => {
       this.mapData.proyek_id = data;
       if (data != undefined)
+      localStorage.removeItem('tindakan')
         this.loadMap();
       //console.log(this.mapData)
     })

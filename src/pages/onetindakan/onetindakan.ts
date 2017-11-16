@@ -19,7 +19,7 @@ import { OnephotoPage } from '../onephoto/onephoto'
 export class OnetindakanPage {
   userDetails: any;
   area_id: any;
-  area: string;
+  act_area: string;
   Status = { "username": "", "token": "", "id_area": "", "stindakan": "", "action_id": "", "komentar": "" };
   responseData
   komentar = {}
@@ -36,12 +36,14 @@ export class OnetindakanPage {
     this.aksitindakan = this.data_tindakan.action_plan
     console.log(this.data_tindakan)
     if (this.aksitindakan != undefined) {
-      const data_info = JSON.parse(localStorage.getItem('info'));
-      this.area_id = data_info
+      //const data_info = JSON.parse(localStorage.getItem('info'));
+      //this.area_id = data_info
+
+      this.area_id = navParams.data 
       //console.log(this.area_id)
       for (var i = 0; i < this.aksitindakan.length; i++) {
         if (this.aksitindakan[i]["act_area_id"] == this.area_id) {
-          this.area = this.aksitindakan[i]["act_area_id"]
+          this.act_area = this.aksitindakan[i]["act_area_id"]
         //  console.log(this.area)
         }
       }

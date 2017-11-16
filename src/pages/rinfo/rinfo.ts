@@ -16,14 +16,21 @@ import { RestProvider } from '../../providers/rest/rest'
 })
 export class RinfoPage {
 
-  ringkasaninfo = { "area_id": "", "username": "", "action": "", "token": "" };
+  ringkasaninfo = { "username": "", "token": "", "proyek_id" : "" };
   userDetails: any;
   responseData: any;
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
+    const data = JSON.parse(localStorage.getItem('userDrupadi'));
+    const proyek = JSON.parse(localStorage.getItem('rpryk'));
+    this.userDetails = data.userData;
+    this.ringkasaninfo.username = this.userDetails.username;
+    this.ringkasaninfo.token = this.userDetails.token;
+    this.ringkasaninfo.proyek_id = proyek["pry_id"]
+    console.log(this.ringkasaninfo)
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RinfoPage');
+    //console.log('ionViewDidLoad RinfoPage');
     /*this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
       this.responseData = result;
       console.log(this.responseData)

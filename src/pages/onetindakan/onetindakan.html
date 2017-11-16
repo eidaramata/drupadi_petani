@@ -1,5 +1,6 @@
 <ion-content class="twitter scroll-content">
-  <div *ngIf="area == area_id && aksitindakan != undefined;else kosong">
+
+<div *ngIf="area_id == act_area && aksitindakan != undefined;else kosong">
     <ng-container *ngFor="let item of aksitindakan">
       <div *ngIf="item.act_area_id == area_id">
         <ion-grid>
