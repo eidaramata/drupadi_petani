@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams,  ModalController } from 'ionic-angular';
+import {RfotoPage } from '../rfoto/rfoto'
 
 /**
  * Generated class for the RtindakanPage page.
@@ -14,22 +15,21 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'rtindakan.html',
 })
 export class RtindakanPage {
-  rlaporan = { "username": "", "token": "", "proyek_id" : "" };
+
   userDetails: any;
   responseData: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    const data = JSON.parse(localStorage.getItem('userDrupadi'));
-    const proyek = JSON.parse(localStorage.getItem('rpryk'));
-    this.userDetails = data.userData;
-    this.rlaporan.username = this.userDetails.username;
-    this.rlaporan.token = this.userDetails.token;
-    this.rlaporan.proyek_id = proyek["pry_id"]
-    console.log(this.rlaporan)
+  tindakan
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {
+    const area_tindakan = JSON.parse(localStorage.getItem('tindakan'));
+    this.tindakan = area_tindakan["action_plan"]
+    console.log(this.tindakan);
   }
 
   ionViewDidLoad() {
     //console.log('ionViewDidLoad RtindakanPage');
   }
-
+viewimage(imagepath:any, area_id:any){
+  const modal = this.modalCtrl.create(RfotoPage, { imagePath: imagepath, area_id: area_id });
+  modal.present();
+}
 }

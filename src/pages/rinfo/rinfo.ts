@@ -19,22 +19,34 @@ export class RinfoPage {
   ringkasaninfo = { "username": "", "token": "", "proyek_id" : "" };
   userDetails: any;
   responseData: any;
+  info
+  usia = []
   constructor(public navCtrl: NavController, public navParams: NavParams, public rest: RestProvider) {
-    const data = JSON.parse(localStorage.getItem('userDrupadi'));
-    const proyek = JSON.parse(localStorage.getItem('rpryk'));
-    this.userDetails = data.userData;
-    this.ringkasaninfo.username = this.userDetails.username;
-    this.ringkasaninfo.token = this.userDetails.token;
-    this.ringkasaninfo.proyek_id = proyek["pry_id"]
-    console.log(this.ringkasaninfo)
+
   }
 
   ionViewDidLoad() {
-    //console.log('ionViewDidLoad RinfoPage');
-    /*this.rest.restPost(this.mapData, "maps/welcome/get_maps_info").then((result) => {
-      this.responseData = result;
-      console.log(this.responseData)
-            });*/
-  }
+    const area_info = JSON.parse(localStorage.getItem('tindakan'));
+    this.info = area_info["area_info"]
+    console.log(this.info);
+
+    // ambil tanggal dari array
+    var umur = []
+    for(var i=0; i < this.info.length; i++){
+      umur.push(this.info[i]["3"])
+    }
+    //ambil tanggal jam hari ini
+    var hari = new Date().getDate();
+    var bulan = new Date().getMonth()+1;
+    var tahun = new Date().getFullYear();
+    var datenow = new Date(tahun + "-" + bulan + "-"+ hari);
+
+    // ulagi dan masukan ke infp sebanyak isi array umur
+    for(var z = 0; z < umur.length; z++){
+      var timeDiff = Math.abs(datenow.getTime() - (new Date (umur[0])).getTime());
+      var usia = Math.ceil(timeDiff / (1000 * 3600 * 24));
+      this.info[z].push(usia)
+    }
+}
 
 }

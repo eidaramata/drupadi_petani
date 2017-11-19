@@ -76,8 +76,9 @@ showInfo(){
     var hari = new Date().getDate();
     var bulan = new Date().getMonth()+1;
     var tahun = new Date().getFullYear();
-    var datenow = new Date(tahun + "/" + bulan + "/"+ hari);
-    var datetanam = new Date(this.mtanam.replace('-', '/'));
+    var datenow = new Date(tahun + "-" + bulan + "-"+ hari);
+    var datetanam = new Date(this.mtanam.replace('-', '-'));
+    //console.log(datetanam)
     var timeDiff = Math.abs(datenow.getTime() - datetanam.getTime());
     this.usia = Math.ceil(timeDiff / (1000 * 3600 * 24));
     //console.log(this.usia)

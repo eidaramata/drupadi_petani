@@ -13,6 +13,94 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="twitterz">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ng-container *ngIf="tindakan != undefined && tindakan.length > 0;else kosong">
 
+  <div *ngFor="let item of tindakan">
+    <ion-card *ngIf="item != ''; else kosong">
+    <ion-card-content>
+      <ion-grid>
+        <ion-row justify-content-start>
+          <ion-col col-5>
+            Area
+          </ion-col>
+          <ion-col col-6 full>
+           : {{item.act_area_id}}
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-start>
+          <ion-col col-5>
+            Action
+          </ion-col>
+          <ion-col col-6>
+            : {{item.action}}
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-start>
+          <ion-col col-5>
+            Banyak
+          </ion-col>
+          <ion-col col-6>
+            : {{item.amount}}
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-start>
+          <ion-col col-5>
+            Satuan
+          </ion-col>
+          <ion-col col-6>
+            : {{item.subaction}}
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-start>
+          <ion-col col-5>
+            Status
+          </ion-col>
+          <ion-col col-7 >
+          <a *ngIf="item.status; else kosongx">
+          <div *ngIf="[item.status] == 1;else dua">
+              : Sudah dilakukan
+              </div>
+              <ng-template #dua>
+              : Belum dilakukan
+              </ng-template>
+                </a>
+                <ng-template #kosongx>
+              :
+                </ng-template>
+          </ion-col>
+        </ion-row>
+        <ion-row justify-content-start>
+          <ion-col col-5>
+           Komentar
+          </ion-col>
+          <ion-col col-7>
+            : {{item.info}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <button small block ion-button (click)="viewimage(item.imagepath, item.act_area_id)">Lihat photo</button>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>
+</ng-container>
+</ion-col>
+</ion-row>
+</ion-grid>
+<ng-template #kosong>
+  <div text-center margin-left margin-top>
+    <ion-grid>
+      <ion-row justify-content-center>
+        <ion-col col-8>
+          Tidak Ada Ringkasan
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ng-template>
 </ion-content>

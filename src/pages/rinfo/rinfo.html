@@ -13,6 +13,82 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="twitterz">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ng-container *ngIf="info != undefined && info.length != 0 ;else kosong">
+        <div *ngFor="let item of info">
+          <ion-card *ngIf =  "item[0][0] != undefined; else kosong">
+          <ion-card-content>
+            <ion-grid>
+              <ion-row justify-content-start>
+                <ion-col col-5>
+                  Area
+                </ion-col>
+                <ion-col col-6 full>
+                  : {{item[0]}}
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-start>
+                <ion-col col-5>
+                  Jenis
+                </ion-col>
+                <ion-col col-6>
+                  : {{item[1]}}
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-start>
+                <ion-col col-5>
+                  Type
+                </ion-col>
+                <ion-col col-6>
+                  : {{item[2]}}
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-start>
+                <ion-col col-5>
+                  Mulai Tanam
+                </ion-col>
+                <ion-col col-6>
+                  : {{item[3]}}
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-start>
+                <ion-col col-5>
+                  Usia
+                </ion-col>
+                <ion-col col-6>
+                  : {{item[5]}} Hari
+                </ion-col>
+              </ion-row>
+              <ion-row justify-content-start>
+                <ion-col col-5>
+                  Status
+                </ion-col>
+                <ion-col col-6>
+                  : {{item[4]}}
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-content>
 
+
+        </ion-card>
+          </div>
+      </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ng-template #kosong>
+    <div text-center margin-left margin-top>
+      <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col col-8>
+            Tidak Ada Ringkasan
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ng-template>
 </ion-content>
