@@ -116,11 +116,12 @@ export class HomePage {
           var polygons = (new google.maps.Polygon({
             paths: cords,
             map: this.map,
-            strokeColor: 'green',
+            strokeColor: '#000',
             strokeOpacity: 0.8,
             strokeWeight: 2,
-            fillColor: 'green',
-            fillOpacity: 0.35,
+            //fillColor: 'green',
+            fillOpacity: 0,
+            //fillOpacity: 0.35,
             area_id: areaid
           }));
           var y = this;
@@ -166,9 +167,11 @@ export class HomePage {
     let modal = this.modalCtrl.create(ModalPage);
     modal.onDidDismiss(data => {
       this.mapData.proyek_id = data;
-      if (data != undefined)
+      //console.log(data)
+      if (data != undefined){
       localStorage.removeItem('tindakan')
         this.loadMap();
+        }
       //console.log(this.mapData)
     })
     modal.present();

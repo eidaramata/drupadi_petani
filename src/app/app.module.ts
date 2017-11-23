@@ -17,6 +17,8 @@ import { PenggunaPage } from '../pages/pengguna/pengguna'
 import { ModalPage } from '../pages/modal/modal'
 import { GantiphotoPage } from '../pages/gantiphoto/gantiphoto'
 import { RfotoPage } from '../pages/rfoto/rfoto'
+import { RriwayatPage } from '../pages/rriwayat/rriwayat'
+
 
 import { HttpModule } from "@angular/http";
 import { StatusBar } from '@ionic-native/status-bar';
@@ -40,7 +42,8 @@ import { RestProvider } from '../providers/rest/rest';
     PenggunaPage,
     ModalPage,
     GantiphotoPage,
-    RfotoPage
+    RfotoPage,
+    RriwayatPage
   ],
   imports: [
     BrowserModule, HttpModule,
@@ -62,7 +65,8 @@ import { RestProvider } from '../providers/rest/rest';
     PenggunaPage,
     ModalPage,
     GantiphotoPage,
-    RfotoPage
+    RfotoPage,
+    RriwayatPage 
   ],
   providers: [
     Camera,

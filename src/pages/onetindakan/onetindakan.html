@@ -1,4 +1,4 @@
-<ion-content class="twitter scroll-content">
+<ion-content class="twitterz scroll-content">
 
 <div *ngIf="area_id == act_area && aksitindakan != undefined;else kosong">
     <ng-container *ngFor="let item of aksitindakan">
@@ -27,11 +27,11 @@
               <ion-select [(ngModel)]="statustindakan[item.action_id]" name="stindakan">
                 <div *ngIf="item.status == 1; else dua">
                   <ion-option selected="true" value="1">Sudah dilakukan</ion-option>
-                  <ion-option value="2">Tidak dilakukan</ion-option>
+                  <ion-option value="2">Belum dilakukan</ion-option>
                 </div>
                 <ng-template #dua>
                   <ion-option value="1">Sudah dilakukan</ion-option>
-                  <ion-option selected="true" value="2">Tidak dilakukan</ion-option>
+                  <ion-option selected="true" value="2">Belum dilakukan</ion-option>
                 </ng-template>
               </ion-select>
             </ion-item>
@@ -41,7 +41,7 @@
               <ion-label>Status</ion-label>
               <ion-select [(ngModel)]="statustindakan[item.action_id]" name="stindakan">
                 <ion-option value="1">Sudah dilakukan</ion-option>
-                <ion-option value="2">Tidak dilakukan</ion-option>
+                <ion-option value="2">TBelum dilakukan</ion-option>
               </ion-select>
             </ion-item>
           </ng-template>
@@ -60,7 +60,7 @@
                   <button ion-button small outline block color="primary" (click)="viewPhoto(item.action_id, item.imagepath) ">Lihat Foto</button>
                 </ion-col>
                 <ion-col>
-                  <button ion-button small block outline color="secondary" (click)="sendTindakan(item.action_id, item.action)">Simpan</button>
+                  <button ion-button small block outline color="primary" (click)="sendTindakan(item.action_id, item.action)">Simpan</button>
                 </ion-col>
               </ion-row>
           <!--</ion-list>-->
@@ -77,7 +77,7 @@
       <ion-grid>
         <ion-row justify-content-center>
           <ion-col col-8>
-            Tidak Ada Tindakan
+            Belum Ada Tindakan
           </ion-col>
         </ion-row>
       </ion-grid>

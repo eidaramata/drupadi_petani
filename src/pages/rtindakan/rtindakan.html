@@ -1,9 +1,3 @@
-<!--
-  Generated template for the RtindakanPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <!--<ion-navbar>
@@ -14,93 +8,62 @@
 
 
 <ion-content class="twitterz">
-  <ion-grid>
+  <!--<ion-grid>
     <ion-row>
       <ion-col>
-        <ng-container *ngIf="tindakan != undefined && tindakan.length > 0;else kosong">
+        <ng-container *ngIf="area_id != undefined && area_id.length > 0;else kosong">
 
-  <div *ngFor="let item of tindakan">
-    <ion-card *ngIf="item != ''; else kosong">
-    <ion-card-content>
+          <div *ngFor="let item of area_id">
+            <ion-card *ngIf="item != ''; else kosong">
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row justify-content-center>
+                    <ion-col>
+                      <h2><b>Area : {{item}} </b></h2>
+                    </ion-col>
+                  </ion-row>
+                  <div text-center>
+                  <button small outline ion-button (click)="viewimage(item)">Lihat Ringkasan</button>
+                  </div>
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ng-container>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ng-template #kosong>
+    <div text-center margin-left margin-top>
       <ion-grid>
-        <ion-row justify-content-start>
-          <ion-col col-5>
-            Area
+        <ion-row justify-content-center>
+          <ion-col col-8>
+            Belum Ada Ringkasan
           </ion-col>
-          <ion-col col-6 full>
-           : {{item.act_area_id}}
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-5>
-            Action
-          </ion-col>
-          <ion-col col-6>
-            : {{item.action}}
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-5>
-            Banyak
-          </ion-col>
-          <ion-col col-6>
-            : {{item.amount}}
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-5>
-            Satuan
-          </ion-col>
-          <ion-col col-6>
-            : {{item.subaction}}
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-5>
-            Status
-          </ion-col>
-          <ion-col col-7 >
-          <a *ngIf="item.status; else kosongx">
-          <div *ngIf="[item.status] == 1;else dua">
-              : Sudah dilakukan
-              </div>
-              <ng-template #dua>
-              : Belum dilakukan
-              </ng-template>
-                </a>
-                <ng-template #kosongx>
-              :
-                </ng-template>
-          </ion-col>
-        </ion-row>
-        <ion-row justify-content-start>
-          <ion-col col-5>
-           Komentar
-          </ion-col>
-          <ion-col col-7>
-            : {{item.info}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <button small block ion-button (click)="viewimage(item.imagepath, item.act_area_id)">Lihat photo</button>
         </ion-row>
       </ion-grid>
-    </ion-card-content>
-  </ion-card>
-</div>
-</ng-container>
-</ion-col>
-</ion-row>
-</ion-grid>
-<ng-template #kosong>
-  <div text-center margin-left margin-top>
+    </div>
+  </ng-template>-->
+
+  <ng-container *ngIf="area_id != undefined && area_id.length > 0;else kosong">
     <ion-grid>
-      <ion-row justify-content-center>
-        <ion-col col-8>
-          Tidak Ada Ringkasan
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </div>
-</ng-template>
+    <div *ngFor="let item of area_id" text-center>
+      <ion-item *ngIf="item != ''; else kosong" text-center>
+        <p>Area {{ item }} </p>
+        <button small outline ion-button (click)="viewimage(item)">Lihat Ringkasan</button>
+      </ion-item>
+    </div>
+  </ion-grid>
+  </ng-container>
+  <ng-template #kosong>
+    <div text-center margin-left margin-top>
+      <ion-grid>
+        <ion-row justify-content-center>
+          <ion-col col-8>
+            Belum Ada Ringkasan
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ng-template>
 </ion-content>
